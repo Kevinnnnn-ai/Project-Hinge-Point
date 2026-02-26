@@ -1,0 +1,5 @@
+Streamlit-Authentication documentation:
+https://github.com/mkhorasani/Streamlit-Authenticator
+
+Streamlit documentation:
+https://docs.streamlit.io/get-started
