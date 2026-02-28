@@ -1,16 +1,11 @@
 import streamlit as st
 import streamlit_authenticator as stauth
-import yaml
-from yaml.loader import SafeLoader
 
-with open('./env/config.yaml') as config_file:
-    config = yaml.load(config_file, Loader=SafeLoader,)
-
-authenticator = stauth.Authenticate( # autheticator must correspond to ./env/config.yaml
-    config['credentials'],
-    config['cookie']['name'],
-    config['cookie']['key'],
-    config['cookie']['expiry_days'],
+authenticator = stauth.Authenticate(
+    st.secrets['credentials'],
+    st.secrets['cookie']['name'],
+    st.secrets['cookie']['key'],
+    st.secrets['cookie']['expiry_days'],
 )
 
 def Login_Page() -> None:
