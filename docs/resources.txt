@@ -3,3 +3,7 @@ https://github.com/mkhorasani/Streamlit-Authenticator
 
 Streamlit documentation:
 https://docs.streamlit.io/get-started
+
+Common command line fix:
+git pull origin main --rebase
+git push origin main

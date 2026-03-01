@@ -1,49 +1,41 @@
 import streamlit as st
-import streamlit_authenticator as stauth
+import uuid # for workspace IDs
 
-authenticator = stauth.Authenticate(
-    st.secrets['credentials'],
-    st.secrets['cookie']['name'],
-    st.secrets['cookie']['key'],
-    st.secrets['cookie']['expiry_days'],
-)
+def get_workspaces() -> None: # check for existing workspaces in session state
+    if 'workspaces' not in st.session_state:
+        st.session_state.workspaces = {} # inside is: workspace_id: {name: str, data: dict}
+    if 'active_workspace' not in st.session_state:
+        st.session_state.active_workspace = None
 
-def Login_Page() -> None:
-    try:
-        authenticator.login(location='main',) # creates a streamlit-authenticator login widget
-    except Exception as e: # in case login system failure
-        st.error(e)
+def dashboard() -> None: # dashboard must be in the same script with workspace functionality
+    st.title('Dashboard')
 
-    if st.session_state.get('authentication_status'): # successful login
-        authenticator.logout(location='sidebar',) # creates a streamlit-authenticator logout widget in the sidebar
-    elif st.session_state.get('authentication_status') is False: # unsuccessful login
-        st.error('Username or password is incorrect or does not exist.')
-    elif st.session_state.get('authentication_status') is None: # unattempted login
-        st.warning('Please enter your username and password.')
+def workspace_sidebar() -> None:
+    with st.sidebar:
+        create_workspace_button = st.button('Create New Workspace')
 
-def Settings_Page() -> None:
-    authenticator.logout(location='main',) # creates a streamlit-authenticator logout widget in the sidebar
-    st.rerun()
+        if create_workspace_button:
+            workspace_id = str(uuid.uuid4())
+            number_of_workspaces = len(st.session_state.workspaces)
+            workspace_name = f'Workspace {number_of_workspaces + 1}'
 
-def Main() -> None:
-    authentication_status = st.session_state.get('authentication_status')
-    if authentication_status: # access to full app if authenticated
-        pages = (
-            st.Page('home.py', title='Home', default=True,),
-            st.Page('dashboard.py', title='Dashboard',),
-            st.Page('profile.py', title='Profile',),
-            st.Page('about.py', title='About',),
-            st.Page(Settings_Page, title='Settings',),
-        )
-    else:
-        pages = (
-            st.Page('home.py', title='Home', default=True,),
-            st.Page('about.py', title='About',),
-            st.Page(Login_Page, title='Login',),
-        )
+            st.session_state.workspaces[workspace_id] = {
+                'name': workspace_name,
+                'data': {},
+            }
+            st.session_state.active_workspace = workspace_id
+            st.success(f'Created {workspace_name} - ID: {workspace_id}')
 
+def main() -> None:
+    pages = (
+        st.Page('home.py', title='Home', default=True,),
+        st.Page(dashboard, title='Dashboard',),
+        st.Page('about.py', title='About',),
+    )
     navigation = st.navigation(pages, position='sidebar', expanded=True,)
     navigation.run()
 
 if __name__ == '__main__':
-    Main()
+    main()
+    workspace_sidebar()
+    get_workspaces()
