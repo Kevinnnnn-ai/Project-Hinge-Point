@@ -14,8 +14,13 @@ def spacer() -> None:
     st.markdown('---')
 
 def hero_section() -> None:
-    st.title('Project Hinge Point')
-    st.markdown('Turn :grey[data] into :grey[impact].', unsafe_allow_html=True)
+        st.markdown(
+            '''
+            # Project :red[Hinge Point]
+            Turn :grey[data] into :grey[impact].
+            ''',
+            unsafe_allow_html=True,
+        )
 
 def description() -> None:
     col1, col2 = st.columns(2, vertical_alignment='center', border=True)
