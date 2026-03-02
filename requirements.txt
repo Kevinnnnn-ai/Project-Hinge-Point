@@ -1,3 +1,5 @@
 streamlit>=1.54.0
 streamlit[charts]
 scipy>=1.17.1
+openpyxl>=3.1.5
+odfpy>=1.4.1

@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.figure_factory as ff
 import plotly.express as px
+import main
 
 st.set_page_config(
     layout='centered',
@@ -23,9 +24,9 @@ def hero_section() -> None:
         )
 
 def description() -> None:
-    col1, col2 = st.columns(2, vertical_alignment='center', border=True)
-    col1.image('assets/placeholder_image.png', width='stretch')
-    col2.markdown(
+    col_1, col_2 = st.columns(spec=2, vertical_alignment='center', border=True)
+    col_1.image(image='assets/placeholder_image.png', width='stretch')
+    col_2.markdown(
         '''
         ## What is Project :red[Hinge Point]?
         **Project Hinge Point** is your go-to tool for quickly calculating **Hattie effect sizes**. 
@@ -41,15 +42,21 @@ def description() -> None:
         With **Project Hinge Point**,
         you can easily calculate these metrics to make informed decisions and guide meaningful change.
         >  "The best thing you can do...
-        is reinforce something you have already learnt." <br>
-        -- John Hattie (regarding the effect size of specific practices)
+        > is reinforce something you have already learnt." <br>
+        > -- John Hattie (regarding the effect size of specific practices)
         ''',
         unsafe_allow_html=True,
     )
 
 def example_section() -> None:
+    st.markdown(
+        '''
+        ## :red[Example] usage.
+        '''
+    )
+
     st.markdown('> Example Input', unsafe_allow_html=True)
-    example_dataframe = pd.DataFrame(
+    df = pd.DataFrame(
         {
             'student': [
                 'Alice', 'Bob', 'Charlie', 'Daniel', 'Elena', 
@@ -58,14 +65,14 @@ def example_section() -> None:
                 'Peter', 'Quinn', 'Rachel', 'Samuel', 'Talia', 
                 'Uriah', 'Violet', 'William', 'Xander', 'Yara',
             ],
-            'score_before': [
+            'pre_scores': [
                 78, 82, 90, 60, 81,
                 55, 70, 63, 77, 52,
                 68, 85, 74, 61, 88,
                 59, 73, 66, 50, 79,
                 62, 71, 80, 54, 76,
             ],
-            'score_after': [
+            'post_scores': [
                 85, 88, 93, 72, 91,
                 66, 81, 74, 88, 64,
                 79, 94, 85, 73, 97,
@@ -74,35 +81,35 @@ def example_section() -> None:
             ],
         }
     )
-    st.dataframe(example_dataframe)
+    st.dataframe(df)
 
     st.markdown('> Example Output', unsafe_allow_html=True)
-    pre_test_scores = example_dataframe['score_before']
-    post_test_scores = example_dataframe['score_after']
+    pre_scores = df['pre_scores']
+    post_scores = df['post_scores']
 
-    pre_mean = pre_test_scores.mean()
-    post_mean = post_test_scores.mean()
+    pre_mean = pre_scores.mean()
+    post_mean = post_scores.mean()
     mean_diff = post_mean - pre_mean
-    pre_standard_deviation = pre_test_scores.std()
-    post_standard_deviation = post_test_scores.std()
-    pooled_standard_deviation = np.sqrt((pre_standard_deviation ** 2 + post_standard_deviation ** 2) / 2)
-    if pooled_standard_deviation > 0:
-        cohens_d = mean_diff / pooled_standard_deviation 
+    pre_std = pre_mean.std()
+    post_std = post_scores.std()
+    pooled_std = np.sqrt((pre_std ** 2 + post_std ** 2) / 2)
+    if pooled_std > 0:
+        cohens_d = mean_diff / pooled_std 
     else:
         cohens_d = 0
     hinge_point = 0.40
-    above_hinge = cohens_d >= hinge_point
+    is_above_hinge = cohens_d >= hinge_point
 
     st.markdown('### Key Metrics', unsafe_allow_html=True)
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric('Pre-test Mean', f'{pre_mean:.2f}')
-    col2.metric('Post-test Mean', f'{post_mean:.2f}')
-    col3.metric('Mean Improvement', f'{mean_diff:.2f}')
-    col4.metric('Effect Size', f'{cohens_d:.2f}')
-    col5, col6, col7 = st.columns(3)
-    col5.metric('Pre-test Standard Deviation', f'{pre_standard_deviation:.2f}')
-    col6.metric('Post-test Standard Deviation', f'{post_standard_deviation:.2f}')
-    col7.metric('Pooled Standard Deviation', f'{pooled_standard_deviation:.2f}')
+    col_1, col_2, col_3, col_4 = st.columns(4)
+    col_1.metric(label='Pre-test Mean', value=f'{pre_mean:.2f}')
+    col_2.metric(label='Post-test Mean', value=f'{post_mean:.2f}')
+    col_3.metric(label='Mean Improvement', value=f'{mean_diff:.2f}')
+    col_4.metric(label='Effect Size', value=f'{cohens_d:.2f}')
+    col_5, col_6, col_7 = st.columns(3)
+    col_5.metric(label='Pre-test Standard Deviation', value=f'{pre_std:.2f}')
+    col_6.metric(label='Post-test Standard Deviation', value=f'{post_std:.2f}')
+    col_7.metric(label='Pooled Standard Deviation', value=f'{pooled_std:.2f}')
 
     if cohens_d < 0.2:
         impact_label = 'Small Effect'
@@ -113,29 +120,26 @@ def example_section() -> None:
     else:
         impact_label = 'Large Effect'
     st.success(f'Impact Category: {impact_label}')
-    if above_hinge:
+    if is_above_hinge:
         st.success("This intervention exceeds Hattie's 0.40 hinge point.")
     else:
         st.warning('This intervention falls below the 0.40 hinge point.')
 
     st.markdown('### Score Distribution Comparison')
-    comparison_histogram_labels = ['Pre-test', 'Post-test']
-    comparison_histogram_data = [pre_test_scores, post_test_scores]
-    comparison_histogram = ff.create_distplot(
-        comparison_histogram_data,
-        comparison_histogram_labels,
+    comp_hist_labels = ['Pre-test', 'Post-test']
+    comp_hist_data = [pre_scores, post_scores]
+    comp_hist = ff.create_distplot(
+        comp_hist_data,
+        comp_hist_labels,
     )
-    st.plotly_chart(comparison_histogram)
+    st.plotly_chart(comp_hist)
 
     st.markdown(
         '''
         > End of example...
-        
         ...and get more data visualizations and tools with your own workspaces!
         '''
     )
-    if st.button('Create a Workspace'):
-        st.write('Redirecting to the workspace')
 
 def call_to_action() -> None:
     st.markdown(
@@ -146,37 +150,40 @@ def call_to_action() -> None:
         ''',
         unsafe_allow_html=True,
     )
+    if st.button('Create a Workspace'):
+        main.get_started()
+        st.rerun()
 
 def benefits_section() -> None:
     st.markdown('## Why Use Project :red[Hinge Point]?', unsafe_allow_html=True)
 
-    col1, col2, col3, col4 = st.columns(4)
+    col_1, col_2, col_3, col_4 = st.columns(4)
 
-    col1.image('assets/placeholder_image.png', width='stretch')
-    col1.markdown('''
+    col_1.image(image='assets/placeholder_image.png', width='stretch')
+    col_1.markdown('''
         **Instant Insights** <br>
         Calculate effect sizes in seconds.
         ''',
         unsafe_allow_html=True,
     )
 
-    col2.image('assets/placeholder_image.png', width='stretch')
-    col2.markdown('''
+    col_2.image(image='assets/placeholder_image.png', width='stretch')
+    col_2.markdown('''
         **Data-Driven Decisions** <br>
         Make informed choices based on metrics.
         ''',
         unsafe_allow_html=True,
     )
 
-    col3.image('assets/placeholder_image.png', width='stretch')
-    col3.markdown('''
+    col_3.image(image='assets/placeholder_image.png', width='stretch')
+    col_3.markdown('''
         **User-Friendly** <br>
         No prior statistics experience needed.
         ''',
         unsafe_allow_html=True,
     )
 
-    col4.image('assets/placeholder_image.png', width='stretch')
+    col_4.image(image='assets/placeholder_image.png', width='stretch')
     col4.markdown('''
         **Reliable & Accurate** <br>
         Trustworthy calculations for research.
@@ -202,6 +209,7 @@ if __name__ == '__main__':
     description()
     spacer()
     call_to_action()
+    spacer()
     example_section()
     spacer()
     benefits_section()

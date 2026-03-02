@@ -1,5 +1,6 @@
 import streamlit as st
 import uuid # for workspace IDs
+import workspace
 
 def dashboard() -> None:
     st.set_page_config(
@@ -8,7 +9,11 @@ def dashboard() -> None:
         page_icon='assets/placeholder_image.png',
     )
 
-    st.title('Dashboard')
+    st.markdown(
+        '''
+        # :red[Dash]board
+        '''
+    )
 
 def get_pages() -> dict:
     pages = {
@@ -33,54 +38,41 @@ def get_pages() -> dict:
 
 def get_workspaces() -> None:
     if 'workspaces' not in st.session_state:
-        st.session_state.workspaces = {}
+        st.session_state.workspaces = {} # if workspaces don't exist, initialize workspace functionality
 
-def make_workspace_page(workspace_id: str) -> callable:
-    def workspace_page(): # convert workspace_id to a callable that can be used as a page
-        workspace = st.session_state.workspaces[workspace_id]
-        
-        st.markdown('### Score Distribution')
-
-        '''
-        histogram_baseline = st.slider(
-            "Set Desired Score Baseline",
-            min_value=0,
-            max_value=100,
-            value=50,
-            step=1,
-        )
-        histogram = px.histogram(
-            example_dataframe,
-            x="score_after",
-            nbins=10,
-        )
-        histogram.add_vline(
-            x=baseline,
-            line_dash="dash",
-            annotation_text=f"Baseline = {baseline}",
-            annotation_position="top"
-        )
-        st.plotly_chart(fig, use_container_width=True)
-        '''
-
-    return workspace_page
+def make_workspace_page(id: str) -> callable:
+    return workspace.make_workspace_page(id)
 
 def workspace_sidebar() -> None:
     with st.sidebar:
         if st.button('Create New Workspace'):
-            workspace_id = str(uuid.uuid4())
-            workspace_name = f'Workspace {len(st.session_state.workspaces) + 1}'
+            id = str(uuid.uuid4())
+            name = f'Workspace {len(st.session_state.workspaces) + 1}'
 
-            st.session_state.workspaces[workspace_id] = {
-                'name': workspace_name,
-                'data': {},
+            st.session_state.workspaces[id] = {
+                'name': name,
+                'data': {
+                    'description': '',
+                },
             }
-            st.success(f'Created {workspace_name}')
+            st.success(f'Created {name}')
+
+def get_started() -> None:
+    id = str(uuid.uuid4())
+    name = f'Workspace {len(st.session_state.workspaces) + 1}'
+
+    st.session_state.workspaces[id] = {
+        'name': name,
+        'data': {
+            'description': '',
+        },
+    }
+    st.success(f'Created {name}')
 
 if __name__ == '__main__':
     get_workspaces()
     workspace_sidebar()
     
     pages = get_pages()
-    navigation = st.navigation(pages, position='sidebar', expanded=True)
+    navigation = st.navigation(pages=pages, position='sidebar', expanded=True)
     navigation.run()
