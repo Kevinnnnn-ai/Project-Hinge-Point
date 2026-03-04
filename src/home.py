@@ -11,8 +11,11 @@ st.set_page_config(
     page_icon='assets/placeholder_image.png',
 )
 
-def spacer() -> None:
+def separator() -> None:
     st.markdown('---', unsafe_allow_html=True)
+
+def spacer() -> None:
+    st.markdown('#####', unsafe_allow_html=True)
 
 def hero_section() -> None:
         st.markdown(
@@ -24,18 +27,17 @@ def hero_section() -> None:
         )
 
 def description() -> None:
-    col_1, col_2 = st.columns(spec=2, vertical_alignment='center', border=True)
-
-    col_1.image(image='assets/placeholder_image.png', width='stretch')
-
-    col_2.markdown(
-        '''
-        ## What is Project :red[Hinge Point]?
-        **Project Hinge Point** is your go-to tool for quickly calculating **Hattie effect sizes**. 
-        Simply input your data and get instant insights to gauge your impactful decisions in education.
-        ''',
-        unsafe_allow_html=True,
-    )
+    with st.container(border=True):
+        col_1, col_2 = st.columns(spec=2, vertical_alignment='center')
+        col_1.image(image='assets/placeholder_image.png', width='stretch')
+        col_2.markdown(
+                '''
+                ## What is Project :red[Hinge Point]?
+                **Project Hinge Point** is your go-to tool for quickly calculating **Hattie effect sizes**. 
+                Simply input your data and get instant insights to gauge your impactful decisions in education.
+                ''',
+                unsafe_allow_html=True,
+            )
 
     st.markdown(
         '''
@@ -51,59 +53,59 @@ def description() -> None:
     )
 
 def call_to_action() -> None:
-    col_1, col_2 = st.columns(spec=2, vertical_alignment='center', border=True)
-
-    col_1.markdown(
-        '''
-        ## Get :red[started].
-        Ready to see your data come to life? <br>
-        Look at this example and click the button below to calculate your Hattie effect size instantly.
-        ''',
-        unsafe_allow_html=True,
-    )
-
-    col_2.image(image='assets/placeholder_image.png', width='stretch')
-    
-    if st.button('Create a Workspace'):
-        main.get_new_workspace()
-        st.rerun()
+    with st.container(border=True):
+        col_1, col_2 = st.columns(spec=2, vertical_alignment='center')
+        col_1.markdown(
+            '''
+            ## Get :red[started].
+            Ready to see your data come to life? <br>
+            Look at this example and click the button below to calculate your Hattie effect size instantly.
+            ''',
+            unsafe_allow_html=True,
+        )
+        col_2.image(image='assets/placeholder_image.png', width='stretch')
+        
+        button = st.button('Create a Workspace')
+        if button:
+            main.get_new_workspace()
+            st.rerun()
 
 def benefits_section() -> None:
     st.markdown('## Why Use Project :red[Hinge Point]?', unsafe_allow_html=True)
 
     col_1, col_2, col_3, col_4 = st.columns(4)
-
-    col_1.image(image='assets/placeholder_image.png', width='stretch')
-    col_1.markdown('''
-        **Instant Insights** <br>
-        Calculate effect sizes in seconds.
-        ''',
-        unsafe_allow_html=True,
-    )
-
-    col_2.image(image='assets/placeholder_image.png', width='stretch')
-    col_2.markdown('''
-        **Data-Driven Decisions** <br>
-        Make informed choices based on metrics.
-        ''',
-        unsafe_allow_html=True,
-    )
-
-    col_3.image(image='assets/placeholder_image.png', width='stretch')
-    col_3.markdown('''
-        **User-Friendly** <br>
-        No prior statistics experience needed.
-        ''',
-        unsafe_allow_html=True,
-    )
-
-    col_4.image(image='assets/placeholder_image.png', width='stretch')
-    col_4.markdown('''
-        **Reliable & Accurate** <br>
-        Trustworthy calculations for research.
-        ''',
-        unsafe_allow_html=True,
-    )
+    with col_1:
+        st.image(image='assets/placeholder_image.png', width='stretch')
+        st.markdown('''
+            **Instant Insights** <br>
+            Calculate effect sizes in seconds.
+            ''',
+            unsafe_allow_html=True,
+        )
+    with col_2:
+        st.image(image='assets/placeholder_image.png', width='stretch')
+        st.markdown('''
+            **Data-Driven Decisions** <br>
+            Make informed choices based on metrics.
+            ''',
+            unsafe_allow_html=True,
+        )
+    with col_3:
+        st.image(image='assets/placeholder_image.png', width='stretch')
+        st.markdown('''
+            **User-Friendly** <br>
+            No prior statistics experience needed.
+            ''',
+            unsafe_allow_html=True,
+        )
+    with col_4:
+        st.image(image='assets/placeholder_image.png', width='stretch')
+        st.markdown('''
+            **Reliable & Accurate** <br>
+            Trustworthy calculations for research.
+            ''',
+            unsafe_allow_html=True,
+        )
 
 def contacts_section() -> None:
     st.markdown(
@@ -119,11 +121,11 @@ def contacts_section() -> None:
 
 if __name__ == '__main__':
     hero_section()
-    spacer()
+    separator()
     description()
     spacer()
     call_to_action()
     spacer()
     benefits_section()
-    spacer()
+    separator()
     contacts_section()

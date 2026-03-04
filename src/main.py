@@ -2,20 +2,11 @@ import streamlit as st
 import uuid # for workspace IDs
 import workspace # workspace.py
 
-def dashboard_page() -> None:
-    st.set_page_config(
-        layout='centered',
-        page_title='Dashboard - Project Hinge Point',
-        page_icon='assets/placeholder_image.png',
-    )
-
-    st.markdown('# :red[Dash]board')
-
 def get_pages() -> dict:
     pages = {
         'Navigation': [
             st.Page('home.py', title='Home', default=True),
-            st.Page(dashboard_page, title='Dashboard'),
+            st.Page('dashboard.py', title='Dashboard'),
             st.Page('about.py', title='About'),
         ],
         'Workspaces': [],
