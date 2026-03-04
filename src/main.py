@@ -1,25 +1,21 @@
 import streamlit as st
 import uuid # for workspace IDs
-import workspace
+import workspace # workspace.py
 
-def dashboard() -> None:
+def dashboard_page() -> None:
     st.set_page_config(
         layout='centered',
         page_title='Dashboard - Project Hinge Point',
         page_icon='assets/placeholder_image.png',
     )
 
-    st.markdown(
-        '''
-        # :red[Dash]board
-        '''
-    )
+    st.markdown('# :red[Dash]board')
 
 def get_pages() -> dict:
     pages = {
         'Navigation': [
             st.Page('home.py', title='Home', default=True),
-            st.Page(dashboard, title='Dashboard'),
+            st.Page(dashboard_page, title='Dashboard'),
             st.Page('about.py', title='About'),
         ],
         'Workspaces': [],
@@ -29,49 +25,47 @@ def get_pages() -> dict:
         workspace_name = workspace_data['name']
         pages['Workspaces'].append(
             st.Page(
-                make_workspace_page(workspace_id), # all workspaces refer to the workspace_page() callable
+                workspace.make_workspace_page(workspace_id),
+                # def make_workspace_page(workspace_id: str) -> callable:
+                #   def workspace_page():
+                #   ...
+                #   return workspace_page
+                #
+                # all workspaces refer to the workspace_page() callable
+                # thus, workspaces need custom URLs to prevent overlap
                 title=workspace_name,
-                url_path=f'workspace_{workspace_id}', # thus, workspaces need cutsom URLs
+                url_path=f'workspace_{workspace_id}',
             )
         )
+
     return pages
 
 def get_workspaces() -> None:
-    if 'workspaces' not in st.session_state:
-        st.session_state.workspaces = {} # if workspaces don't exist, initialize workspace functionality
+    if 'workspaces' not in st.session_state: # possible if user has no workspace history
+        st.session_state.workspaces = {}
 
-def make_workspace_page(id: str) -> callable:
-    return workspace.make_workspace_page(id)
-
-def workspace_sidebar() -> None:
-    with st.sidebar:
-        if st.button('Create New Workspace'):
-            id = str(uuid.uuid4())
-            name = f'Workspace {len(st.session_state.workspaces) + 1}'
-
-            st.session_state.workspaces[id] = {
-                'name': name,
-                'data': {
-                    'description': '',
-                },
-            }
-            st.success(f'Created {name}')
-
-def get_started() -> None:
-    id = str(uuid.uuid4())
+def get_new_workspace() -> None:
+    id = str(uuid.uuid4()) # effectively infinite workspaces
     name = f'Workspace {len(st.session_state.workspaces) + 1}'
 
     st.session_state.workspaces[id] = {
         'name': name,
         'data': {
             'description': '',
+            'dataset': None,
         },
     }
+
     st.success(f'Created {name}')
+
+def sidebar_funtionality() -> None:
+    with st.sidebar:
+        if st.button('Create New Workspace'):
+            get_new_workspace()
 
 if __name__ == '__main__':
     get_workspaces()
-    workspace_sidebar()
+    sidebar_funtionality()
     
     pages = get_pages()
     navigation = st.navigation(pages=pages, position='sidebar', expanded=True)
