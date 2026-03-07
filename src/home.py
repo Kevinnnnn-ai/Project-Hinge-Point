@@ -29,11 +29,12 @@ def hero_section() -> None:
 def description() -> None:
     with st.container(border=True):
         col_1, col_2 = st.columns(spec=2, vertical_alignment='center')
-        col_1.image(image='assets/placeholder_image.png', width='stretch')
+        col_1.image(image='assets/test_data_1_comp_hist.png', width='stretch')
         col_2.markdown(
                 '''
                 ## What is Project :red[Hinge Point]?
-                **Project Hinge Point** is your go-to tool for quickly calculating **Hattie effect sizes**. 
+                **Project Hinge Point** is your go-to tool for quickly calculating **Hattie effect sizes**,
+                a measure of your teaching efficacy.
                 Simply input your data and get instant insights to gauge your impactful decisions in education.
                 ''',
                 unsafe_allow_html=True,
@@ -63,7 +64,7 @@ def call_to_action() -> None:
             ''',
             unsafe_allow_html=True,
         )
-        col_2.image(image='assets/placeholder_image.png', width='stretch')
+        col_2.image(image='assets/test_data_1_dataframe_preview.png', width='stretch')
         
         button = st.button('Create a Workspace')
         if button:
@@ -75,15 +76,15 @@ def benefits_section() -> None:
 
     col_1, col_2, col_3, col_4 = st.columns(4)
     with col_1:
-        st.image(image='assets/placeholder_image.png', width='stretch')
+        st.image(image='assets/test_data_1_effect_size.png', width='stretch')
         st.markdown('''
             **Instant Insights** <br>
             Calculate effect sizes in seconds.
             ''',
             unsafe_allow_html=True,
-        )
+        )   
     with col_2:
-        st.image(image='assets/placeholder_image.png', width='stretch')
+        st.image(image='assets/test_data_1_key_metrics.png', width='stretch')
         st.markdown('''
             **Data-Driven Decisions** <br>
             Make informed choices based on metrics.
@@ -91,7 +92,7 @@ def benefits_section() -> None:
             unsafe_allow_html=True,
         )
     with col_3:
-        st.image(image='assets/placeholder_image.png', width='stretch')
+        st.image(image='assets/test_data_1_metric_summary.png', width='stretch')
         st.markdown('''
             **User-Friendly** <br>
             No prior statistics experience needed.
@@ -99,7 +100,7 @@ def benefits_section() -> None:
             unsafe_allow_html=True,
         )
     with col_4:
-        st.image(image='assets/placeholder_image.png', width='stretch')
+        st.image(image='assets/test_data_1_comp_box_plot.png', width='stretch')
         st.markdown('''
             **Reliable & Accurate** <br>
             Trustworthy calculations for research.
@@ -122,10 +123,14 @@ def contacts_section() -> None:
 if __name__ == '__main__':
     hero_section()
     separator()
+    
     description()
     spacer()
+
     call_to_action()
     spacer()
+
     benefits_section()
     separator()
+    
     contacts_section()

@@ -41,10 +41,8 @@ def get_new_workspace() -> None:
 
     st.session_state.workspaces[id] = {
         'name': name,
-        'data': {
-            'description': '',
-            'dataset': None,
-        },
+        'description': '',
+        'dataset': None,
     }
 
     st.success(f'Created {name}')

@@ -13,7 +13,7 @@ def spacer() -> None:
 def make_workspace_page(workspace_id: str) -> callable:
     def workspace_page(): # convert workspace_id to a callable that can be used as a page
         workspace_name = st.session_state.workspaces[workspace_id]['name']
-        workspace_description = st.session_state.workspaces[workspace_id]['data']['description']
+        workspace_description = st.session_state.workspaces[workspace_id]['description']
 
         st.set_page_config(
             layout='centered',
@@ -25,12 +25,22 @@ def make_workspace_page(workspace_id: str) -> callable:
         # workspace header
         # ============================
         st.markdown(f'# {workspace_name}')
-        st.session_state.workspaces[workspace_id]['data']['description'] = st.text_area(
+        st.session_state.workspaces[workspace_id]['name'] = st.text_area(
+            label='Enter workspace name here:',
+            height=100, width='stretch',
+            placeholder='Enter name here...',
+            value=workspace_name,
+        )
+        st.session_state.workspaces[workspace_id]['description'] = st.text_area(
             label='Enter workspace description here:',
             height='content', width='stretch',
             placeholder='Enter description here...',
             value=workspace_description,
         )
+        
+        if workspace_name != st.session_state.workspaces[workspace_id]['name']:
+            st.rerun()
+
         separator()
 
         # ============================
@@ -52,7 +62,8 @@ def make_workspace_page(workspace_id: str) -> callable:
                     > 2. Pre-test grade
                     > 3. Post-test grade
 
-                    > Note that they do not have to be named as such.
+                    > Note that the name of each heading, the number of headings, and the order of the headings
+                    > (past the first 3) does not matter.
                     ''',
                     unsafe_allow_html=True,
                 )
@@ -91,8 +102,8 @@ def make_workspace_page(workspace_id: str) -> callable:
                         st.success('Dataset has been loaded.')
                     except:
                         st.error('Data frame creation error.')
-                    st.session_state.workspaces[workspace_id]['data']['dataset'] = dataframe
-                dataframe = st.session_state.workspaces[workspace_id]['data']['dataset']
+                    st.session_state.workspaces[workspace_id]['dataset'] = dataframe
+                dataframe = st.session_state.workspaces[workspace_id]['dataset']
 
             # ============================
             # dataset preview
@@ -497,7 +508,7 @@ def make_workspace_page(workspace_id: str) -> callable:
                             name='Pre-test',
                             marker=dict(color='white'),
                             line=dict(color='white'),
-                            boxpoints='all', jitter=0.3, pointpos=-1.5,
+                            boxpoints='all', jitter=0, pointpos=-1.5,
                         )
                     )
                     comp_box.add_trace(
@@ -506,7 +517,7 @@ def make_workspace_page(workspace_id: str) -> callable:
                             name='Post-test',
                             marker=dict(color='red'),
                             line=dict(color='red'),
-                            boxpoints='all', jitter=0.3, pointpos=-1.5,
+                            boxpoints='all', jitter=0, pointpos=-1.5,
                         )
                     )
                     comp_box.update_layout(
