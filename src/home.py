@@ -46,7 +46,7 @@ def description() -> None:
                 '''
                 ## What is Project :red[Hinge Point]?
                 
-                **Project Hinge Point** is your go-to tool for quickly calculating **Hattie effect sizes**,
+                Project Hinge Point is your go-to tool for quickly calculating **John Hattie effect sizes**,
                 a measure of your teaching efficacy.
                 Simply input your data and get instant insights to gauge your impactful decisions in education.
                 ''',
@@ -57,9 +57,9 @@ def description() -> None:
         '''
         ## Why do :red[Hattie effect sizes] matter?
 
-        Hattie effect sizes help you understand the impact of your educational strategies. 
-        With **Project Hinge Point**,
-        you can easily calculate these metrics to make informed decisions and guide meaningful change.
+        **Hattie effect sizes** help you understand the impact of your educational strategies. 
+        With Project Hinge Point,
+        you can easily calculate metrics to make informed decisions and guide meaningful change.
 
         > *"The best thing you can do...*
         > *is reinforce something you have already learnt."* <br>

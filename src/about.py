@@ -25,7 +25,7 @@ def value_proposition_section() -> None:
     st.markdown(
         '''
         # About :red[Project Hinge Point]
-        Turning :grey[educational data] into :grey[meaningful insight].
+        Turning :grey[educational data] into :grey[insight].
         ''',
         unsafe_allow_html=True,
     )
@@ -40,7 +40,7 @@ def value_proposition_section() -> None:
             st.markdown(
                 '''
                 #### Instant Analysis
-                Upload your data and get statistical results in seconds, no software expertise needed.
+                Upload your data and get statistical results in seconds.
                 ''',
                 unsafe_allow_html=True,
             )
@@ -50,7 +50,7 @@ def value_proposition_section() -> None:
             st.markdown(
                 '''
                 #### Clear Benchmarks
-                Every result is measured against Hattie's **0.40 hinge point**, giving your data immediate context.
+                Every result is measured against **Hattie's 0.40 hinge point**, giving your data immediate context.
                 ''',
                 unsafe_allow_html=True,
             )
@@ -77,13 +77,13 @@ def story_section() -> None:
             '''
             ## The :red[Why]
 
-            Teachers collect copius amounts of classroom data, but turning that data into a clear
+            Teachers collect numerous amounts of classroom data, but turning that data into a clear
             picture of impact has always required specialized statistical tools. <br>
 
             Most educators don't have the time, training, or access to those tools. In fact, many
             important decisions get made on instinct rather than evidence, as  patterns in the data can go unnoticed. <br>
 
-            **Project Hinge Point** was built to change that, an accessible interface that turns
+            Project Hinge Point was built to change that, an accessible interface that turns
             data into insight directly within the hands of the people who need it most.
             ''',
             unsafe_allow_html=True,
@@ -124,8 +124,8 @@ def team_section() -> None:
             '''
             #### The :red[Creator & Developer]
 
-            I built Project Hinge Point to bridge the gap between educational
-            research and classroom practices. I want to focus on combining
+            My name is Kevin Jie, and I built Project Hinge Point to bridge the gap between educational
+            research and classroom practices at Temple High School. I want to focus on combining
             statistical analysis with graphical interfaces that anyone can use. <br>
 
             + **Streamlit:** [Kevin Jie](https://share.streamlit.io/user/kevinnnnn-ai)
@@ -144,16 +144,16 @@ def credibility_section() -> None:
                 '''
                 ## The Research :red[Behind It]
 
-                **John Hattie's** synthesis of over 800 meta-analyses — published in
-                *Visible Learning* (2009) — remains one of the most comprehensive
+                **John Hattie's** synthesis of over 800 meta-analyses, published in
+                *Visible Learning* (2009), remains one of the most comprehensive
                 investigations into what actually drives student achievement. <br>
 
                 His central finding: an **effect size of 0.40** represents the average
                 yearly learning growth expected of a student. Practices that exceed
-                this threshold are considered **above-average contributors** to learning. <br>
+                this threshold are considered above-average contributors to learning. <br>
 
-                Project Hinge Point operationalizes this benchmark so educators can
-                measure their own instructional impact against a globally recognized standard.
+                Project Hinge Point implements this benchmark so educators can
+                measure their own impact against a globally recognized standard.
                 ''',
                 unsafe_allow_html=True,
             )
