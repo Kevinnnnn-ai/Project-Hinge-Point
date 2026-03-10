@@ -8,7 +8,7 @@ import main # main.py
 st.set_page_config(
     layout='centered',
     page_title='About - Project Hinge Point',
-    page_icon='assets/project_hinge_point_logo.png',
+    page_icon='res/project_hinge_point_logo.png',
 )
 
 def separator() -> None:
@@ -36,7 +36,7 @@ def value_proposition_section() -> None:
         col_1, col_2, col_3 = st.columns(3)
         
         with col_1:
-            st.image('assets/test_data_2_metric_summary.png')
+            st.image('res/test_data_2_metric_summary.png')
             st.markdown(
                 '''
                 #### Instant Analysis
@@ -46,7 +46,7 @@ def value_proposition_section() -> None:
             )
 
         with col_2:
-            st.image('assets/test_data_2_effect_size_interpretation.png')
+            st.image('res/test_data_2_effect_size_interpretation.png')
             st.markdown(
                 '''
                 #### Clear Benchmarks
@@ -56,7 +56,7 @@ def value_proposition_section() -> None:
             )
 
         with col_3:
-            st.image('assets/test_data_2_comp_hist.png')
+            st.image('res/test_data_2_comp_hist.png')
             col_3.markdown(
                 '''
                 #### Visual Insights
@@ -69,13 +69,13 @@ def story_section() -> None:
     col_1, col_2 = st.columns([3,4], vertical_alignment='center')
 
     with col_1:
-        st.image('assets/laptop_on_desk_image.jpg', width='stretch')
-        st.image('assets/data_illustration.jpg', width='stretch')
+        st.image('res/laptop_on_desk_image.jpg', width='stretch')
+        st.image('res/data_illustration.jpg', width='stretch')
 
     with col_2:
         st.markdown(
             '''
-            ## The :red[Why]
+            ## 💭 The :red[Why]
 
             Teachers collect numerous amounts of classroom data, but turning that data into a clear
             picture of impact has always required specialized statistical tools. <br>
@@ -96,7 +96,7 @@ def mission_section() -> None:
         with col_1:
             st.markdown(
                 '''
-                ## Mission :red[&] Values
+                ### 🎯 Mission :red[&] Values
 
                 The mission is to make statistical analysis **accessible, interpretable,
                 and usable** for every teacher. <br>
@@ -109,15 +109,15 @@ def mission_section() -> None:
             )
 
         with col_2:
-            st.image('assets/project_hinge_point_logo.png', width='stretch')
+            st.image('res/project_hinge_point_logo.png', width='stretch')
 
 def team_section() -> None:
-    st.markdown('## The :red[Team]', unsafe_allow_html=True)
+    st.markdown('## 🪄 The :red[Team]', unsafe_allow_html=True)
 
     col_1, col_2 = st.columns([14, 10], vertical_alignment='center')
 
     with col_1:
-        st.image('assets/temple_high_school.jpeg', width='stretch')
+        st.image('res/temple_high_school.jpeg', width='stretch')
 
     with col_2:
         st.markdown(
@@ -142,7 +142,7 @@ def credibility_section() -> None:
         with col_1:
             st.markdown(
                 '''
-                ## The Research :red[Behind It]
+                ## 🔬 The Research :red[Behind It]
 
                 **John Hattie's** synthesis of over 800 meta-analyses, published in
                 *Visible Learning* (2009), remains one of the most comprehensive
@@ -175,7 +175,7 @@ def call_to_action_section() -> None:
     with col_1:
         st.markdown(
             '''
-            ## Ready to :red[Get Started]?
+            ## 📢 Ready to :red[Get Started]?
 
             Upload your pre- and post-test data and see your instructional
             impact measured in seconds. No statistics background required.
@@ -185,9 +185,9 @@ def call_to_action_section() -> None:
 
     with col_2:
         with st.container(border=True):
-            st.image('assets/file_upload_section.png', width='stretch')
+            st.image('res/file_upload_section.png', width='stretch')
 
-    button = st.button('Create a Workspace', width='stretch')
+    button = st.button('✨ Create Workspace', width='stretch')
     if button:
         main.get_new_workspace()
         st.rerun()

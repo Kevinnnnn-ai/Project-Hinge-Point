@@ -12,7 +12,7 @@ import main # main.py
 st.set_page_config(
     layout='centered',
     page_title='Home - Project Hinge Point',
-    page_icon='assets/project_hinge_point_logo.png',
+    page_icon='res/project_hinge_point_logo.png',
 )
 
 def separator() -> None:
@@ -39,12 +39,12 @@ def description() -> None:
         col_1, col_2 = st.columns(spec=2, vertical_alignment='center')
 
         with col_1:
-            st.image(image='assets/test_data_1_comp_hist.png', width='stretch')
+            st.image(image='res/test_data_1_comp_hist.png', width='stretch')
 
         with col_2:
             st.markdown(
                 '''
-                ## What is Project :red[Hinge Point]?
+                ## ℹ️ What is Project :red[Hinge Point]?
                 
                 Project Hinge Point is your go-to tool for quickly calculating **John Hattie effect sizes**,
                 a measure of your teaching efficacy.
@@ -55,7 +55,7 @@ def description() -> None:
 
     st.markdown(
         '''
-        ## Why do :red[Hattie effect sizes] matter?
+        ## 📌 Why do :red[Hattie effect sizes] matter?
 
         **Hattie effect sizes** help you understand the impact of your educational strategies. 
         With Project Hinge Point,
@@ -75,7 +75,7 @@ def call_to_action() -> None:
         with col_1:
             col_1.markdown(
                 '''
-                ## Get :red[started].
+                ## 📢 Get :red[started].
 
                 Ready to see your data come to life? <br>
 
@@ -85,20 +85,20 @@ def call_to_action() -> None:
             )
 
         with col_2:
-            st.image(image='assets/test_data_1_dataframe_preview.png', width='stretch')
+            st.image(image='res/test_data_1_dataframe_preview.png', width='stretch')
         
-        button = st.button('Create a Workspace', width='stretch')
+        button = st.button('✨ Create Workspace', width='stretch')
         if button:
             main.get_new_workspace()
             st.rerun()
 
 def benefits_section() -> None:
-    st.markdown('## Why Use Project :red[Hinge Point]?', unsafe_allow_html=True)
+    st.markdown('## 💡 Why Use Project :red[Hinge Point]?', unsafe_allow_html=True)
 
     col_1, col_2, col_3, col_4 = st.columns(4)
 
     with col_1:
-        st.image(image='assets/test_data_1_effect_size.png', width='stretch')
+        st.image(image='res/test_data_1_effect_size.png', width='stretch')
         st.markdown('''
             **Instant Insights** <br>
 
@@ -108,7 +108,7 @@ def benefits_section() -> None:
         )   
 
     with col_2:
-        st.image(image='assets/test_data_1_key_metrics.png', width='stretch')
+        st.image(image='res/test_data_1_key_metrics.png', width='stretch')
         st.markdown('''
             **Data-Driven Decisions** <br>
 
@@ -118,7 +118,7 @@ def benefits_section() -> None:
         )
 
     with col_3:
-        st.image(image='assets/test_data_1_metric_summary.png', width='stretch')
+        st.image(image='res/test_data_1_metric_summary.png', width='stretch')
         st.markdown('''
             **User-Friendly** <br>
 
@@ -128,7 +128,7 @@ def benefits_section() -> None:
         )
 
     with col_4:
-        st.image(image='assets/test_data_1_comp_box_plot.png', width='stretch')
+        st.image(image='res/test_data_1_comp_box_plot.png', width='stretch')
         st.markdown('''
             **Reliable & Accurate** <br>
 
@@ -140,12 +140,12 @@ def benefits_section() -> None:
 def contacts_section() -> None:
     st.markdown(
         '''
-        ## :red[Connect] with me.
+        ## 📡 :red[Connect] with me.
 
         Have questions or feedback? I'd love to hear from you!  
-        + **Streamlit Profile:** [Kevin Jie](https://share.streamlit.io/user/kevinnnnn-ai)
-        + **GitHub:** [Kevinnnnn-ai](https://github.com/Kevinnnnn-ai)
-        + **LinkedIn:** [kevin-jie-21a477368](https://www.linkedin.com/in/kevin-jie-21a477368/)
+        + 🚀 **Streamlit Profile:** [Kevin Jie](https://share.streamlit.io/user/kevinnnnn-ai)
+        + 🔗 **GitHub:** [Kevinnnnn-ai](https://github.com/Kevinnnnn-ai)
+        + 🌐 **LinkedIn:** [kevin-jie-21a477368](https://www.linkedin.com/in/kevin-jie-21a477368/)
         ''',
         unsafe_allow_html=True,
     )

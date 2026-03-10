@@ -8,20 +8,22 @@ import workspace # workspace.py
 
 def get_pages() -> dict:
     pages = {
-        'Navigation': [
+        '🔎 The Project:': [
             st.Page('home.py', title='Home', default=True),
-            st.Page('how_to_use.py', title='How To Use'),
-            st.Page('what_is_effect_size.py', title='What Is Effect Size'),
             st.Page('dashboard.py', title='Dashboard'),
             st.Page('about.py', title='About'),
+        ],
+        '🧭 Using The Project:': [
+            st.Page('how_to_use.py', title='How To Use'),
+            st.Page('what_is_effect_size.py', title='What Is Effect Size'),
             st.Page('terms_of_service.py', title='Terms of Service'),
         ],
-        'Workspaces': [],
+        '🛠️ Your Workspaces:': [],
     }
 
     for workspace_id, workspace_data in st.session_state.workspaces.items():
         workspace_name = workspace_data['name']
-        pages['Workspaces'].append(
+        pages['🛠️ Your Workspaces:'].append(
             st.Page(
                 workspace.make_workspace_page(workspace_id),
                 # def make_workspace_page(workspace_id: str) -> callable:
@@ -56,7 +58,7 @@ def get_new_workspace() -> None:
 
 def sidebar_funtionality() -> None:
     with st.sidebar:
-        if st.button('Create New Workspace'):
+        if st.button('✨ Create Workspace'):
             get_new_workspace()
 
 # ============================

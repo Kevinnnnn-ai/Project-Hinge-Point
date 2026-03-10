@@ -5,6 +5,9 @@ https://github.com/mkhorasani/Streamlit-Authenticator
 Streamlit documentation:
 https://docs.streamlit.io/get-started
 
+Emojis:
+https://emojidb.org/homepage-emojis
+
 Common command line fix:
 (a common GitHub problem when committing)
 git pull origin main --rebase

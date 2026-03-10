@@ -28,14 +28,14 @@ def make_workspace_page(workspace_id: str) -> callable:
         st.markdown(f'# {workspace_name}')
 
         st.session_state.workspaces[workspace_id]['name'] = st.text_area(
-            label='Enter workspace name here:',
+            label='✏️ Enter workspace name here:',
             height=100, width='stretch',
             placeholder='Enter name here...',
             value=workspace_name,
         )
 
         st.session_state.workspaces[workspace_id]['description'] = st.text_area(
-            label='Enter workspace description here:',
+            label='📝 Enter workspace description here:',
             height='content', width='stretch',
             placeholder='Enter description here...',
             value=workspace_description,
@@ -58,7 +58,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # ============================
 
             with st.container(border=True):
-                st.markdown('### :red[Instructions] and Exceptions:', unsafe_allow_html=True)
+                st.markdown('### 📑 :red[Instructions] and Exceptions:', unsafe_allow_html=True)
 
                 upload_col_1, upload_col_2 = st.columns(2)
                 upload_col_1.markdown(
@@ -90,7 +90,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # ============================
 
             with st.container(border=True):
-                st.markdown('### :red[File] Upload:', unsafe_allow_html=True)
+                st.markdown('### 📁 :red[File] Upload:', unsafe_allow_html=True)
                 dataset = st.file_uploader(
                     label='Upload dataset.',
                     type=['csv', 'xlsx', 'ods'], # 3 most common dataset types
@@ -121,7 +121,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # dataset preview area
             # ============================
 
-            st.markdown('### :red[Dataset] Preview:', unsafe_allow_html=True)
+            st.markdown('### 🗃️ :red[Dataset] Preview:', unsafe_allow_html=True)
 
             if dataframe is not None:
                 st.dataframe(dataframe)
@@ -205,7 +205,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # pre-test measurements area
             # ============================
 
-            metric_summary_col_1.markdown('### :red[Pre-test] Measurements:', unsafe_allow_html=True)
+            metric_summary_col_1.markdown('#### ⏪ :red[Pre-test] Measurements:', unsafe_allow_html=True)
 
             try:
                 metric_summary_col_1.table(
@@ -239,7 +239,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # post-test measurements area
             # ============================
 
-            metric_summary_col_2.markdown('### :red[Post-test] Measurements:', unsafe_allow_html=True)
+            metric_summary_col_2.markdown('#### ⏩ :red[Post-test] Measurements:', unsafe_allow_html=True)
             
             try:
                 metric_summary_col_2.table(
@@ -273,7 +273,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # effect-size measurements area
             # ============================
 
-            st.markdown('### :red[Effect Size] Measurements:', unsafe_allow_html=True)
+            st.markdown('### 💡 :red[Effect Size] Measurements:', unsafe_allow_html=True)
             try:
                 st.table(
                     data={
@@ -297,7 +297,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # ============================
 
             with st.container(border=True):
-                st.markdown('### :red[Key] Metrics:', unsafe_allow_html=True)
+                st.markdown('### ⚡️ :red[Key] Metrics:', unsafe_allow_html=True)
 
                 try:
                     key_metrics_col_1, key_metrics_col_2, key_metrics_col_3, key_metrics_col_4 = st.columns(4)
@@ -316,21 +316,21 @@ def make_workspace_page(workspace_id: str) -> callable:
 
                 try:
                     if cohens_d < 0.2:
-                        st.info(f'Impact Category: Small Effect')
+                        st.info(f'⚠️ Impact Category: Small Effect')
                     elif cohens_d < 0.4:
-                        st.info(f'Impact Category: Below Hinge Point')
+                        st.info(f'❌ Impact Category: Below Hinge Point')
                     elif cohens_d < 0.8:
-                        st.info(f'Impact Category: Moderate Effect')
+                        st.info(f'✅ Impact Category: Moderate Effect')
                     else:
-                        st.info(f'Impact Category: Large Effect')
+                        st.info(f'🔥 Impact Category: Large Effect')
                 except:
                     st.error("Effect size (Cohen's d) interpretation display error.")
                 
                 try:
                     if is_above_hinge:
-                        st.info("This intervention exceeds Hattie's 0.40 hinge point.")
+                        st.info("🔥 This intervention exceeds Hattie's 0.40 hinge point.")
                     else:
-                        st.info('This intervention falls below the 0.40 hinge point.')
+                        st.info('❌ This intervention falls below the 0.40 hinge point.')
                 except:
                     st.error('Hinge point check display error.')
 
@@ -346,7 +346,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # ============================
 
             with st.container(border=True):
-                st.markdown('### :red[Comparison] Histogram:', unsafe_allow_html=True)
+                st.markdown('### 📊 :red[Comparison] Histogram:', unsafe_allow_html=True)
 
                 st.warning(
                     '''
@@ -397,7 +397,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # ============================
 
             with st.container(border=True):
-                st.markdown('### :red[Baseline] Histograms:', unsafe_allow_html=True)
+                st.markdown('### 📈 :red[Baseline] Histograms:', unsafe_allow_html=True)
 
                 st.warning(
                     '''
@@ -553,7 +553,7 @@ def make_workspace_page(workspace_id: str) -> callable:
             # ============================
 
             with st.container(border=True):
-                st.markdown('### :red[Pre- vs. Post-] Box Plot Comparison:', unsafe_allow_html=True)
+                st.markdown('### 🎚️ :red[Pre- vs. Post-] Box Plot Comparison:', unsafe_allow_html=True)
 
                 st.warning(
                     '''
