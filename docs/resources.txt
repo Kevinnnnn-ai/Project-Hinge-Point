@@ -8,6 +8,9 @@ https://docs.streamlit.io/get-started
 Emojis:
 https://emojidb.org/homepage-emojis
 
+Material Icons:
+https://fonts.google.com/icons?icon.size=24&icon.color=%23e3e3e3
+
 Common command line fix:
 (a common GitHub problem when committing)
 git pull origin main --rebase

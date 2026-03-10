@@ -1,156 +1,109 @@
 import streamlit as st
-import main # main.py
-
-# ============================
-# page setup
-# ============================
+from main import get_new_workspace
 
 st.set_page_config(
     layout='centered',
     page_title='About - Project Hinge Point',
-    page_icon='res/project_hinge_point_logo.png',
+    page_icon='res/placeholder_image.png',
 )
 
-def separator() -> None:
-    st.markdown('---', unsafe_allow_html=True)
-
-def spacer() -> None:
-    st.markdown('#####', unsafe_allow_html=True)
-
-# ============================
-# page sections
-# ============================
-
-def value_proposition_section() -> None:
+def value_proposition() -> None:
     st.markdown(
         '''
-        # About :red[Project Hinge Point]
-        Turning :grey[educational data] into :grey[insight].
+        # About Project Hinge Point
+        ##### Turning educational data into insight.
         ''',
-        unsafe_allow_html=True,
+        unsafe_allow_html=True
     )
-
-    separator()
 
     with st.container(border=True):
         col_1, col_2, col_3 = st.columns(3)
-        
         with col_1:
-            st.image('res/test_data_2_metric_summary.png')
-            st.markdown(
-                '''
-                #### Instant Analysis
-                Upload your data and get statistical results in seconds.
-                ''',
-                unsafe_allow_html=True,
-            )
-
+            st.image('res/placeholder_image.png')
+            st.markdown('#### Instant Analysis', unsafe_allow_html=True)
         with col_2:
-            st.image('res/test_data_2_effect_size_interpretation.png')
-            st.markdown(
-                '''
-                #### Clear Benchmarks
-                Every result is measured against **Hattie's 0.40 hinge point**, giving your data immediate context.
-                ''',
-                unsafe_allow_html=True,
-            )
-
+            st.image('res/placeholder_image.png')
+            st.markdown('#### Clear Benchmarks', unsafe_allow_html=True)
         with col_3:
-            st.image('res/test_data_2_comp_hist.png')
-            col_3.markdown(
-                '''
-                #### Visual Insights
-                Pre- and post-test comparisons are rendered as interactive charts you can explore and share.
-                ''',
-                unsafe_allow_html=True,
-            )
+            st.image('res/placeholder_image.png')
+            col_3.markdown('#### Visual Insights', unsafe_allow_html=True)
 
-def story_section() -> None:
+def story() -> None:
     col_1, col_2 = st.columns([3,4], vertical_alignment='center')
-
     with col_1:
-        st.image('res/laptop_on_desk_image.jpg', width='stretch')
-        st.image('res/data_illustration.jpg', width='stretch')
+        st.image('res/placeholder_image.png', width='stretch')
+        st.image('res/placeholder_image.png', width='stretch')
 
     with col_2:
         st.markdown(
             '''
-            ## 💭 The :red[Why]
+            ## The Why
 
             Teachers collect numerous amounts of classroom data, but turning that data into a clear
-            picture of impact has always required specialized statistical tools. <br>
+            picture of impact has always required specialized statistical tools.
 
             Most educators don't have the time, training, or access to those tools. In fact, many
-            important decisions get made on instinct rather than evidence, as  patterns in the data can go unnoticed. <br>
+            important decisions get made on instinct rather than evidence, as patterns in the data can go unnoticed.
 
-            Project Hinge Point was built to change that, an accessible interface that turns
+            Project Hinge Point was built to change that, an *accessible* interface that turns
             data into insight directly within the hands of the people who need it most.
             ''',
             unsafe_allow_html=True,
         )
 
-def mission_section() -> None:
+def mission() -> None:
     with st.container(border=True):
         col_1, col_2 = st.columns(2, vertical_alignment='center')
-
         with col_1:
             st.markdown(
                 '''
-                ### 🎯 Mission :red[&] Values
+                ## Mission & Values
 
-                The mission is to make statistical analysis **accessible, interpretable,
-                and usable** for every teacher. <br>
+                The mission is to make statistical analysis *accessible*, *interpretable*,
+                and *usable* for every teacher.
 
                 We believe that:
-                + Data belongs to **teachers**.
-                + Good tools should be **simple** and **accurate**.
+                + Data belongs to *teachers*.
+                + Good tools should be *simple* and *accurate*.
                 ''',
                 unsafe_allow_html=True,
             )
 
         with col_2:
-            st.image('res/project_hinge_point_logo.png', width='stretch')
+            st.image('res/placeholder_image.png', width='stretch')
 
-def team_section() -> None:
-    st.markdown('## 🪄 The :red[Team]', unsafe_allow_html=True)
-
-    col_1, col_2 = st.columns([14, 10], vertical_alignment='center')
-
+def team() -> None:
+    col_1, col_2 = st.columns([7, 5], vertical_alignment='center')
     with col_1:
-        st.image('res/temple_high_school.jpeg', width='stretch')
+        st.image('res/placeholder_image.png', width='stretch')
 
     with col_2:
         st.markdown(
             '''
-            #### The :red[Creator & Developer]
+            ## The Creator & Developer
 
-            My name is Kevin Jie, and I built Project Hinge Point to bridge the gap between educational
-            research and classroom practices at Temple High School. I want to focus on combining
-            statistical analysis with graphical interfaces that anyone can use. <br>
-
-            + **Streamlit:** [Kevin Jie](https://share.streamlit.io/user/kevinnnnn-ai)
-            + **GitHub:** [Kevinnnnn-ai](https://github.com/Kevinnnnn-ai)
-            + **LinkedIn:** [kevin-jie-21a477368](https://www.linkedin.com/in/kevin-jie-21a477368/)
+            My name is Kevin Jie, and I built Project Hinge Point to bridge the gap between *educational research*
+            and *classroom practices* at Temple High School. I want to focus on combining statistical analysis
+            with graphical interfaces that anyone can use.
             ''',
             unsafe_allow_html=True,
         )
 
-def credibility_section() -> None:
+def credibility() -> None:
     with st.container(border=True):
         col_1, col_2 = st.columns([2, 1], vertical_alignment='center')
-
         with col_1:
             st.markdown(
                 '''
-                ## 🔬 The Research :red[Behind It]
+                ## The Research Behind It
 
-                **John Hattie's** synthesis of over 800 meta-analyses, published in
+                *John Hattie's* synthesis of over 800 meta-analyses, published in
                 *Visible Learning* (2009), remains one of the most comprehensive
-                investigations into what actually drives student achievement. <br>
+                investigations into what actually drives student achievement.
 
-                His central finding: an **effect size of 0.40** represents the average
+                His central finding: an *effect size of 0.40* represents the average
                 yearly learning growth expected of a student. Practices that exceed
-                this threshold are considered above-average contributors to learning. <br>
+                this threshold are considered above-average contributors to learning.
 
                 Project Hinge Point implements this benchmark so educators can
                 measure their own impact against a globally recognized standard.
@@ -169,13 +122,12 @@ def credibility_section() -> None:
                 unsafe_allow_html=True,
             )
 
-def call_to_action_section() -> None:
+def call_to_action() -> None:
     col_1, col_2 = st.columns(2, vertical_alignment='center')
-    
     with col_1:
         st.markdown(
             '''
-            ## 📢 Ready to :red[Get Started]?
+            ## Ready to Get Started?
 
             Upload your pre- and post-test data and see your instructional
             impact measured in seconds. No statistics background required.
@@ -184,32 +136,17 @@ def call_to_action_section() -> None:
         )
 
     with col_2:
-        with st.container(border=True):
-            st.image('res/file_upload_section.png', width='stretch')
+        st.image('res/placeholder_image.png', width='stretch')
 
-    button = st.button('✨ Create Workspace', width='stretch')
+    button = st.button('Create Workspace', width='stretch', icon=':material/add_circle:')
     if button:
-        main.get_new_workspace()
+        get_new_workspace()
         st.rerun()
 
-# ============================
-# execution logic
-# ============================
-
 if __name__ == '__main__':
-    value_proposition_section()
-    spacer()
-
-    story_section()
-    spacer()
-
-    mission_section()
-    spacer()
-
-    team_section()
-    spacer()
-
-    credibility_section()
-    spacer()
-
-    call_to_action_section()
+    value_proposition()
+    story()
+    mission()
+    team()
+    credibility()
+    call_to_action()

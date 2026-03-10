@@ -1,170 +1,109 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import plotly.figure_factory as ff
-import plotly.express as px
-import main # main.py
-
-# ============================
-# page setup
-# ============================
+from main import get_pages, get_new_workspace
 
 st.set_page_config(
     layout='centered',
     page_title='Home - Project Hinge Point',
-    page_icon='res/project_hinge_point_logo.png',
+    page_icon='res/placeholder_image.png',
 )
 
-def separator() -> None:
-    st.markdown('---', unsafe_allow_html=True)
+def how_to_use_card() -> None:
+    with st.container(border=True):
+        if st.button('How To Use', icon=':material/table:'):
+            st.switch_page('how_to_use.py')
 
-def spacer() -> None:
-    st.markdown('#####', unsafe_allow_html=True)
-
-# ============================
-# page sections
-# ============================
-
-def hero_section() -> None:
         st.markdown(
             '''
-            # Project :red[Hinge Point]
-            Turn :grey[data] into :grey[impact].
+            
             ''',
             unsafe_allow_html=True,
         )
 
-def description() -> None:
+def what_is_effect_size_card() -> None:
     with st.container(border=True):
-        col_1, col_2 = st.columns(spec=2, vertical_alignment='center')
+        if st.button('What Is Effect Size', icon=':material/insert_chart:'):
+            st.switch_page('what_is_effect_size.py')
 
-        with col_1:
-            st.image(image='res/test_data_1_comp_hist.png', width='stretch')
+        st.markdown(
+            '''
+            
+            ''',
+            unsafe_allow_html=True,
+        )
 
-        with col_2:
-            st.markdown(
-                '''
-                ## ℹ️ What is Project :red[Hinge Point]?
-                
-                Project Hinge Point is your go-to tool for quickly calculating **John Hattie effect sizes**,
-                a measure of your teaching efficacy.
-                Simply input your data and get instant insights to gauge your impactful decisions in education.
-                ''',
-                unsafe_allow_html=True,
-            )
+def dashboard_card() -> None:
+    with st.container(border=True):
+        if st.button('Dashboard', icon=':material/dashboard:'):
+            st.switch_page('dashboard.py')
 
+        st.markdown(
+            '''
+            
+            ''',
+            unsafe_allow_html=True,
+        )
+
+def workspaces_card() -> None:
+    with st.container(border=True):
+        if st.button('Workspaces', icon=':material/widgets:'):
+            get_new_workspace()
+            pages = get_pages()
+            last_workspace = len(pages['Your Workspaces']) - 1
+            st.switch_page(pages['Your Workspaces'][last_workspace])
+
+        st.markdown(
+            '''
+            
+            ''',
+            unsafe_allow_html=True,
+        )
+
+def terms_of_service_card() -> None:
+    with st.container(border=True):
+        if st.button('Terms of Service', icon=':material/article:'):
+            st.switch_page('terms_of_service.py')
+
+        st.markdown(
+            '''
+            
+            ''',
+            unsafe_allow_html=True,
+        )
+
+def about_card() -> None:
+    with st.container(border=True):
+        if st.button('About', icon=':material/error:'):
+            st.switch_page('about.py')
+
+        st.markdown(
+            '''
+            
+            ''',
+            unsafe_allow_html=True,
+        )
+
+def header() -> None:
     st.markdown(
         '''
-        ## 📌 Why do :red[Hattie effect sizes] matter?
+        # Project Hinge Point
 
-        **Hattie effect sizes** help you understand the impact of your educational strategies. 
-        With Project Hinge Point,
-        you can easily calculate metrics to make informed decisions and guide meaningful change.
-
-        > *"The best thing you can do...*
-        > *is reinforce something you have already learnt."* <br>
-        > -- John Hattie (regarding the effect size of specific practices)
+        You go-to tool for calculating your teaching efficacy.
         ''',
         unsafe_allow_html=True,
     )
 
-def call_to_action() -> None:
-    with st.container(border=True):
-        col_1, col_2 = st.columns(spec=2, vertical_alignment='center')
-
-        with col_1:
-            col_1.markdown(
-                '''
-                ## 📢 Get :red[started].
-
-                Ready to see your data come to life? <br>
-
-                Click the button below to calculate your Hattie effect size instantly.
-                ''',
-                unsafe_allow_html=True,
-            )
-
-        with col_2:
-            st.image(image='res/test_data_1_dataframe_preview.png', width='stretch')
-        
-        button = st.button('✨ Create Workspace', width='stretch')
-        if button:
-            main.get_new_workspace()
-            st.rerun()
-
-def benefits_section() -> None:
-    st.markdown('## 💡 Why Use Project :red[Hinge Point]?', unsafe_allow_html=True)
-
-    col_1, col_2, col_3, col_4 = st.columns(4)
-
+def cards() -> None:
+    col_1, col_2 = st.columns(2)
     with col_1:
-        st.image(image='res/test_data_1_effect_size.png', width='stretch')
-        st.markdown('''
-            **Instant Insights** <br>
-
-            Calculate effect sizes in seconds.
-            ''',
-            unsafe_allow_html=True,
-        )   
+        how_to_use_card()
+        dashboard_card()
+        terms_of_service_card()
 
     with col_2:
-        st.image(image='res/test_data_1_key_metrics.png', width='stretch')
-        st.markdown('''
-            **Data-Driven Decisions** <br>
-
-            Make informed choices based on metrics.
-            ''',
-            unsafe_allow_html=True,
-        )
-
-    with col_3:
-        st.image(image='res/test_data_1_metric_summary.png', width='stretch')
-        st.markdown('''
-            **User-Friendly** <br>
-
-            No prior statistics experience needed.
-            ''',
-            unsafe_allow_html=True,
-        )
-
-    with col_4:
-        st.image(image='res/test_data_1_comp_box_plot.png', width='stretch')
-        st.markdown('''
-            **Reliable & Accurate** <br>
-
-            Trustworthy calculations for research.
-            ''',
-            unsafe_allow_html=True,
-        )
-
-def contacts_section() -> None:
-    st.markdown(
-        '''
-        ## 📡 :red[Connect] with me.
-
-        Have questions or feedback? I'd love to hear from you!  
-        + 🚀 **Streamlit Profile:** [Kevin Jie](https://share.streamlit.io/user/kevinnnnn-ai)
-        + 🔗 **GitHub:** [Kevinnnnn-ai](https://github.com/Kevinnnnn-ai)
-        + 🌐 **LinkedIn:** [kevin-jie-21a477368](https://www.linkedin.com/in/kevin-jie-21a477368/)
-        ''',
-        unsafe_allow_html=True,
-    )
-
-# ============================
-# execution logic
-# ============================
+        what_is_effect_size_card()
+        workspaces_card()
+        about_card()
 
 if __name__ == '__main__':
-    hero_section()
-    separator()
-    
-    description()
-    spacer()
-
-    call_to_action()
-    spacer()
-
-    benefits_section()
-    separator()
-    
-    contacts_section()
+    header()
+    cards()
