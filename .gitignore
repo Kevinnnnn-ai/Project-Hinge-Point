@@ -1,6 +1,5 @@
 venv/
 
-.streamlit/
 .config/
 src/__pycache__/
 .devcontainer/
