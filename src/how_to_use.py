@@ -1,5 +1,5 @@
 import streamlit as st
-import main # main.py
+import main
 
 st.warning('THIS PAGE IS CURRENTLY UNDER DEVELOPMENT. YOU MAY ENCOUNTER ERRORS.')
 
@@ -131,8 +131,6 @@ def visualizations_section() -> None:
                 unsafe_allow_html=True,
             )
 
-    spacer()
-
     with st.container(border=True):
         st.markdown(
             '''
@@ -174,19 +172,9 @@ def call_to_action_section() -> None:
             main.get_new_workspace()
             st.rerun()
 
-# ============================
-# execution logic
-# ============================
-
 if __name__ == '__main__':
     header()
     workflow()
-    spacer()
-
     data_format_section()
-    spacer()
-
     visualizations_section()
-    spacer()
-
     call_to_action_section()

@@ -1,5 +1,6 @@
 venv/
+backup_venv_1/
+backup_venv_2/
 
 .config/
 src/__pycache__/
-.devcontainer/

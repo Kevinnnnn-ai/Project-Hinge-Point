@@ -38,13 +38,13 @@ def story() -> None:
         '''
         ## The Why
 
-        Teachers collect numerous amounts of classroom data, but turning that data into a clear
+        Teachers collect numerous amounts of classroom data, but turning that data into a *clear*
         picture of impact has always required specialized statistical tools.
 
-        Most educators don't have the time, training, or access to those tools. In fact, many
+        Most educators don't have the *time*, *training*, or *access* to those tools. In fact, many
         important decisions get made on instinct rather than evidence, as patterns in the data can go unnoticed.
 
-        Project Hinge Point was built to change that, an *accessible* interface that turns
+        :grey-background[Project Hinge Point was built to change that], an *accessible* interface that turns
         data into insight directly within the hands of the people who need it most.
         ''',
         unsafe_allow_html=True,
@@ -57,8 +57,8 @@ def mission() -> None:
             '''
             ## Mission & Values
 
-            The mission is to make statistical analysis *accessible*, *interpretable*,
-            and *usable* for every teacher.
+            The mission is to make statistical analysis
+            :grey-background[*accessible*, *interpretable*, and *usable*] for every teacher.
 
             We believe that:
             + Data belongs to *teachers*.
@@ -77,9 +77,10 @@ def team() -> None:
         '''
         ## The Creator & Developer
 
-        My name is Kevin Jie, and I built Project Hinge Point to bridge the gap between *educational research*
-        and *classroom practices* at Temple High School. I want to focus on combining statistical analysis
-        with graphical interfaces that anyone can use.
+        My name is *Kevin Jie*, and I built Project Hinge Point to 
+        :grey-background[bridge the gap between educational research]
+        and classroom practices at *Temple High School*. I want to focus on combining statistical analysis
+        with graphical interfaces that :grey-background[anyone can use].
         ''',
         unsafe_allow_html=True,
     )
@@ -99,8 +100,8 @@ def credibility() -> None:
             yearly learning growth expected of a student. Practices that exceed
             this threshold are considered above-average contributors to learning.
 
-            Project Hinge Point implements this benchmark so educators can
-            measure their own impact against a globally recognized standard.
+            Project Hinge Point implements this :grey-background[benchmark] so educators can
+            measure their own impact against a :grey-background[globally recognized standard].
             ''',
             unsafe_allow_html=True,
         )
@@ -122,14 +123,14 @@ def call_to_action() -> None:
         ## Ready to Get Started?
 
         Upload your pre- and post-test data and see your instructional
-        impact measured in seconds. No statistics background required.
+        impact measured in seconds. :grey-background[No statistics background required].
         ''',
         unsafe_allow_html=True,
     )
 
     col_2.image('res/placeholder_image.png', width='stretch')
 
-    button = st.button('Create Workspace', width='stretch', icon=':material/add_circle:')
+    button = st.button('Create Workspace', type='primary', width='stretch', icon=':material/add_circle:')
     if button:
         get_new_workspace()
         st.rerun()

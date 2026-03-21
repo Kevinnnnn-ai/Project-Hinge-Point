@@ -21,10 +21,11 @@ def file_upload_and_preview(workspace_id: str) -> None:
                 st.markdown('#### **Expectations & Exceptions**:', unsafe_allow_html=True)
                 st.markdown(
                     '''
-                    The first three columns must be ordered: student, pre-test score, and post-test score.
+                    The :grey-background[first three columns] must be ordered:
+                    student, pre-test score, and post-test score.
 
                     Note that the *name* of each heading, *number* of headings, and *order* of the headings
-                    (past the first three) does not matter.
+                    (past the first three) :grey-background[does not matter].
                     ''',
                     unsafe_allow_html=True,
                 )
@@ -32,8 +33,8 @@ def file_upload_and_preview(workspace_id: str) -> None:
                 st.markdown(
                     '''
                     In the event that you do not have a student column, make a column in place of where the student
-                    name column should be and fill it with random values. Student names are *not* needed for
-                    functionality.
+                    name column should be and fill it with random values. Student names are
+                    :grey-background[*not* needed for functionality].
                     ''',
                     unsafe_allow_html=True,
                 )
@@ -69,7 +70,7 @@ def file_upload_and_preview(workspace_id: str) -> None:
 
                     if dataframe is None: # meaning first upload
                         st.dataframe(dataframe, width=400, height=361, hide_index=True)
-                    elif dataframe is not None: # meaning another upload
+                    else: # meaning another upload
                         st.dataframe(dataframe, width=400, height=304, hide_index=True)
                     st.session_state.workspaces[workspace_id]['dataframe'] = dataframe
 
@@ -278,6 +279,20 @@ def metric_summary(workspace_id: str) -> None:
             st.markdown('#### **Effect Size**:')
             st.dataframe({'Metric': [], 'Value': []}, hide_index=True)
 
+def delta_zero_color(delta_zero_color: str, inverse: bool, value) -> str: # the color of delta at 0
+    if delta_zero_color == 'green':
+        if value == 0.0:    return 'green'
+        elif inverse:       return 'inverse'
+        else:               return 'normal'
+    elif delta_zero_color == 'red':
+        if value == 0.0:    return 'green'
+        elif inverse:       return 'inverse'
+        else:               return 'normal'
+    else:
+        if value == 0.0:    return 'green'
+        elif inverse:       return 'inverse'
+        else:               return 'normal'
+
 def key_metrics(workspace_id: str) -> None:
     dataframe = st.session_state.workspaces[workspace_id]['dataframe']
     with st.container(border=True):
@@ -300,14 +315,14 @@ def key_metrics(workspace_id: str) -> None:
                 with col_1:
                     st.metric(
                         label='Post-test Mean (x̄₂)',
-                        border=True, value=f'{post_mean:.2f}',
+                        border=True, value=f'{post_mean:.2f}', delta_color=delta_zero_color('red', False, mean_diff),
                         delta=f'{mean_diff:.2f} ({mean_diff / pre_mean * 100:.2f}%)',
                     )
 
                     std_diff = post_std - pre_std
                     st.metric(
                         label='Post-test SD (s₂)',
-                        border=True, value=f'{post_std:.2f}', delta_color='inverse',
+                        border=True, value=f'{post_std:.2f}', delta_color=delta_zero_color('off', True, std_diff),
                         delta=f'{std_diff:-.2f} ({std_diff / pre_std * 100:.2f}%)',
                     )
 
@@ -325,13 +340,13 @@ def key_metrics(workspace_id: str) -> None:
                         go.Indicator(
                             mode='gauge+number+delta',
                             value=cohens_d,
-                            number={'prefix': 'Effect Size (d): ','font': {'size': 25}},
+                            number={'prefix': 'Effect Size (d): ', 'font': {'size': 25}},
                             delta={'reference': hinge_point, 'suffix': ' from hinge'},
                             gauge={
                                 'axis': {
                                     'range': [0, 1.5],
                                     'tickvals': [0.2, 0.4, 0.8, 1.2],
-                                    'ticktext': ['Small Effect', 'Hinge Point', 'Moderate Effect', 'Large Effect']
+                                    'ticktext': ['Small', 'Hinge Point', 'Moderate', 'Large']
                                 },
                                 'bar': {'color': color},
                                 'steps': [
@@ -366,21 +381,21 @@ def key_metrics(workspace_id: str) -> None:
             with col_1:
                 st.metric(
                     label='Post-test Mean (x̄₂)',
-                    border=True, value=f'{0:.2f}',
-                    delta=f'{0:.2f}', delta_color='off',
+                    border=True, value=f'{0:.2f}', delta_color='off',
+                    delta=f'{0:-.2f} ({0:.2f}%)',
                 )
 
                 st.metric(
                     label='Post-test SD (s₂)',
-                    value=f'{0:.2f}', border=True,
-                    delta=f'{0:-.2f}', delta_color='off',
+                    border=True, value=f'{0:.2f}', delta_color='off',
+                    delta=f'{0:-.2f} ({0:.2f}%)', 
                 )
 
             with col_2:
                 gauge = go.Figure(
                     go.Indicator(
                         mode='gauge+number+delta', value=0.00,
-                        number={'prefix': 'Effect Size (d): ','font': {'size': 25}},
+                        number={'prefix': 'Effect Size (d): ', 'font': {'size': 25}},
                         delta={'reference': 0.4, 'suffix': ' from hinge'},
                         gauge={
                             'axis': {
@@ -422,20 +437,20 @@ def key_metrics(workspace_id: str) -> None:
 
             try:
                 col_5.metric(
-                    label='Improved Students',
-                    value=improved, border=True,
+                    label='Students that Improved',
+                    value=improved, border=True, delta_color=delta_zero_color('red', False, improved),
                     delta=f'{improved} ({improved / sample_size * 100:.2f}%)',
                 )
 
                 col_6.metric(
-                    label='Unchanged Students',
-                    value=unchanged, border=True, delta_color='inverse',
+                    label='Students Unchanged',
+                    value=unchanged, border=True, delta_color=delta_zero_color('green', True, unchanged),
                     delta=f'{unchanged} ({unchanged / sample_size * 100:.2f}%)',
                 )
 
                 col_7.metric(
-                    label='Regressed Students',
-                    value=regressed, border=True, delta_color='inverse',
+                    label='Students that Regressed',
+                    value=regressed, border=True, delta_color=delta_zero_color('green', True, regressed),
                     delta=f'{regressed} ({regressed / sample_size * 100:.2f}%)',
                 )
                 
@@ -444,19 +459,19 @@ def key_metrics(workspace_id: str) -> None:
 
         else:
             col_5.metric(
-                label='Improved Students', 
+                label='Students that Improved', 
                 value=0, border=True, delta_color='off',
                 delta=f'{0} ({0:.2f}%)',
             )
 
             col_6.metric(
-                label='Unchanged Students',
+                label='Students Unchanged',
                 value=0, border=True, delta_color='off',
                 delta=f'{0} ({0:.2f}%)',
             )
 
             col_7.metric(
-                label='Regressed Students',
+                label='Students that Regressed',
                 value=0, border=True, delta_color='off',
                 delta=f'{0} ({0:.2f}%)',
             )
@@ -475,24 +490,34 @@ def make_workspace_page(workspace_id: str) -> callable:
 
         header(workspace_name)
 
-        st.session_state.workspaces[workspace_id]['name'] = st.text_area(
-            label='Enter workspace name here:',
-            height=100, width='stretch',
-            placeholder='Enter name here...',
-            value=workspace_name,
-        )
+        tabs = st.tabs(['Name & Description', 'File Upload', 'Metric Summary', 'Key Metrics'])
 
-        st.session_state.workspaces[workspace_id]['description'] = st.text_area(
-            label='Enter workspace description here:',
-            height='content', width='stretch',
-            placeholder='Enter description here...',
-            value=workspace_description,
-        )
+        with tabs[0]:
+            st.session_state.workspaces[workspace_id]['name'] = st.text_area(
+                label='Enter workspace name here:',
+                height=100, width='stretch',
+                placeholder='Enter name here...',
+                value=workspace_name,
+            )
+
+            st.session_state.workspaces[workspace_id]['description'] = st.text_area(
+                label='Enter workspace description here:',
+                height='content', width='stretch',
+                placeholder='Enter description here...',
+                value=workspace_description,
+            )
 
         check_header(workspace_name=workspace_name, workspace_id=workspace_id)
-        file_upload_and_preview(workspace_id=workspace_id)
+
+        with tabs[1]:
+            file_upload_and_preview(workspace_id=workspace_id)
+
         calculate(workspace_id=workspace_id)
-        metric_summary(workspace_id=workspace_id)
-        key_metrics(workspace_id=workspace_id)
+
+        with tabs[2]:
+            metric_summary(workspace_id=workspace_id)
+
+        with tabs[3]:
+            key_metrics(workspace_id=workspace_id)
 
     return workspace_page
