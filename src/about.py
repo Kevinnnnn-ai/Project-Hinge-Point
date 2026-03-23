@@ -1,5 +1,5 @@
 import streamlit as st
-from main import get_new_workspace
+from main import get_new_workspace # for workspace redirection button
 
 st.set_page_config(
     layout='centered',
@@ -7,13 +7,13 @@ st.set_page_config(
     page_icon='res/placeholder_image.png',
 )
 
-def value_proposition() -> None:
+def value_proposition() -> None: # what is the point of Project Hinge Point in a few words?
     st.markdown(
         '''
         # About Project Hinge Point
         ##### Turning educational data into insight.
         ''',
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
     with st.container(border=True):
@@ -28,8 +28,8 @@ def value_proposition() -> None:
             st.image('res/placeholder_image.png')
             st.markdown('#### Visual Insights', unsafe_allow_html=True)
 
-def story() -> None:
-    col_1, col_2 = st.columns([3,4], vertical_alignment='center')
+def story() -> None: # how did Project Hinge Point come to be and why?
+    col_1, col_2 = st.columns([3, 4], vertical_alignment='center')
     with col_1:
         st.image('res/placeholder_image.png', width='stretch')
         st.image('res/placeholder_image.png', width='stretch')
@@ -50,7 +50,7 @@ def story() -> None:
         unsafe_allow_html=True,
     )
 
-def mission() -> None:
+def mission() -> None: # mission statement
     with st.container(border=True):
         col_1, col_2 = st.columns(2, vertical_alignment='center')
         col_1.markdown(
@@ -69,7 +69,7 @@ def mission() -> None:
 
         col_2.image('res/placeholder_image.png', width='stretch')
 
-def team() -> None:
+def team() -> None: # about myself and broader goals in the context of this project
     col_1, col_2 = st.columns([7, 5], vertical_alignment='center')
     col_1.image('res/placeholder_image.png', width='stretch')
 
@@ -85,7 +85,7 @@ def team() -> None:
         unsafe_allow_html=True,
     )
 
-def credibility() -> None:
+def credibility() -> None: # why is the project trustworthy and reliable?
     with st.container(border=True):
         col_1, col_2 = st.columns([2, 1], vertical_alignment='center')
         col_1.markdown(
@@ -116,7 +116,7 @@ def credibility() -> None:
             unsafe_allow_html=True,
         )
 
-def call_to_action() -> None:
+def call_to_action() -> None: # start using Project Hinge Point now
     col_1, col_2 = st.columns(2, vertical_alignment='center')
     col_1.markdown(
         '''
@@ -133,7 +133,7 @@ def call_to_action() -> None:
     button = st.button('Create Workspace', type='primary', width='stretch', icon=':material/add_circle:')
     if button:
         get_new_workspace()
-        st.rerun()
+        st.rerun() # makes the newly added workspace viible via sidebar
 
 if __name__ == '__main__':
     value_proposition()

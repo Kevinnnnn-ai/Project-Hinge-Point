@@ -1,16 +1,12 @@
 import streamlit as st
-import pandas as pd
-import plotly.graph_objects as go
-from main import get_pages, get_new_workspace
+import plotly.graph_objects as go # for visual figures in each card
+from main import get_pages, get_new_workspace # to redirect users via the buttons on each card
 
 st.set_page_config(
     layout='centered',
     page_title='Home - Project Hinge Point',
     page_icon='res/placeholder_image.png',
 )
-
-def dummy_dataset() -> str:
-    return './res/dummy_dataset.csv'
 
 def how_to_use_card() -> None:
     with st.container(border=True, height=315):
@@ -26,8 +22,8 @@ def how_to_use_card() -> None:
             unsafe_allow_html=True,
         )
 
-        dataframe = pd.read_csv(dummy_dataset())
-        st.dataframe(dataframe, height=135, hide_index=True)
+        dummy_dataframe = st.session_state.dummy_dataset['dataframe']
+        st.dataframe(dummy_dataframe, height=135, hide_index=True)
 
 def what_is_effect_size_card() -> None:
     with st.container(border=True, height=315):
@@ -44,36 +40,33 @@ def what_is_effect_size_card() -> None:
 
         gauge = go.Figure(
             go.Indicator(
-                mode='gauge+number+delta', value=1.03,
+                mode='gauge+number+delta', value=st.session_state.dummy_dataset['dataframe_statistics']['cohens_d'],
                 number={'prefix': 'Effect Size (d): ', 'font': {'size': 13}},
                 delta={'reference': 0.4, 'suffix': ' from hinge'},
                 gauge={
                     'axis': {
-                        'range': [0, 1.5],
+                        'range':    [0.0, 1.5],
                         'tickvals': [0.2, 0.4, 0.8, 1.2],
-                        'ticktext': ['Small', 'Hinge Point', 'Moderate', 'Large']
+                        'ticktext': ['Small', 'Hinge Point', 'Moderate', 'Large'],
                     },
                     'bar': {'color': '#5ae086'},
                     'steps': [
-                        {'range': [0, 0.2],  'color': '#000000'},
+                        {'range': [0.0, 0.2], 'color': '#000000'},
                         {'range': [0.2, 0.4], 'color': '#252525'},
                         {'range': [0.4, 0.8], 'color': '#444444'},
                         {'range': [0.8, 1.2], 'color': '#656565'},
                         {'range': [1.2, 1.5], 'color': '#7c7c7c'},
                     ],
                     'threshold': {
-                        'line': {'color': 'white', 'width': 2},
+                        'line':      {'color': 'white', 'width': 2},
                         'thickness': 0.75,
-                        'value': 0.4,
+                        'value':     0.4,
                     },
                 },
             )
         )
 
-        gauge.update_layout(
-            height=250, margin=dict(t=60, b=0, l=40, r=40),
-            paper_bgcolor='rgba(0,0,0,0)',
-        )
+        gauge.update_layout(height=250, margin=dict(t=60, b=0, l=40, r=40))
 
         st.plotly_chart(gauge, width='stretch', height=160)
 
@@ -99,12 +92,33 @@ def workspaces_card() -> None:
 
         st.markdown(
             '''
-            Input your data, calculate metrics, and get your effect size.
+            Input your :grey-background[data], calculate :grey-background[metrics],
+            and get your :grey-background[effect size].
             ''',
             unsafe_allow_html=True,
         )
 
-        dataframe = pd.read_csv(dummy_dataset())
+        st.dataframe(
+            data={
+                'Metric': [
+                    'Effect Size (d)',
+                    'Hinge Point',
+                    'Is Above Hinge Point',
+                    'Sample Size (n)',
+                    'Mean Difference (Δx̄)',
+                    'Pooled Standard Deviation (sₚ)',
+                ],
+                'Value': [
+                    f'{st.session_state.dummy_dataset['dataframe_statistics']['cohens_d']:.2f}',
+                    f'{st.session_state.dummy_dataset['dataframe_statistics']['hinge_point']:.2f}',
+                    f'{st.session_state.dummy_dataset['dataframe_statistics']['is_above_hinge']}',
+                    f'{st.session_state.dummy_dataset['dataframe_statistics']['sample_size']}',
+                    f'{st.session_state.dummy_dataset['dataframe_statistics']['mean_diff']:.2f}',
+                    f'{st.session_state.dummy_dataset['dataframe_statistics']['pooled_std']:.2f}',
+                ],
+            },
+            height=160,
+        )
 
 def terms_of_service_card() -> None:
     with st.container(border=True, height=315):
@@ -113,7 +127,9 @@ def terms_of_service_card() -> None:
 
         st.markdown(
             '''
-            Review how Project Hinge Point safely and privately manages your data.
+            Review how Project Hinge Point should utilized in order to
+            produce reliable results, make informed decisions,
+            and help build Project Hinge Point into more than just an educational tool.
             ''',
             unsafe_allow_html=True,
         )

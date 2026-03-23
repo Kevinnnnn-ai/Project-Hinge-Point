@@ -1,20 +1,18 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import plotly.express as px
-import plotly.graph_objects as go
+import pandas as pd # for dataframe creation
+import numpy as np # for pooled std calculation
+import plotly.express as px # for histogram figures
+import plotly.graph_objects as go # for visual data displays (in general)
 
 def header(workspace_name: str) -> None:
     st.markdown(f'# {workspace_name}', unsafe_allow_html=True)
 
 def check_header(workspace_name: str, workspace_id: str) -> None:
     if workspace_name != st.session_state.workspaces[workspace_id]['name']:
-        st.rerun() # for matching header/workspace name
+        st.rerun() # to show matching header/workspace name
 
 def file_upload_and_preview(workspace_id: str) -> None:
     with st.container(border=True):
-        st.markdown('# File Upload', unsafe_allow_html=True)
-
         col_1, col_2 = st.columns([2, 3])
         with col_1:
             with st.container(border=True):
@@ -42,7 +40,7 @@ def file_upload_and_preview(workspace_id: str) -> None:
         with col_2:
             if st.button('Delete dataset', width='stretch', icon=':material/do_not_disturb_on:'):
                 st.session_state.workspaces[workspace_id]['dataframe'] = None
-                st.session_state['uploader_key'] += 1  # forces uploader to reset
+                st.session_state['uploader_key'] += 1  # forces uploader wdiget to reset
                 st.rerun()
 
             if 'uploader_key' not in st.session_state:
@@ -53,11 +51,12 @@ def file_upload_and_preview(workspace_id: str) -> None:
                 type=['csv', 'xlsx', 'ods'], # 3 most common dataset types
                 accept_multiple_files=False,
                 width='stretch',
-                key=st.session_state['uploader_key'],  # changing this resets the widget
+                key=st.session_state['uploader_key'], # changing this resets the widget
             )
 
             dataframe = st.session_state.workspaces[workspace_id]['dataframe']
             dummyframe = {'Student': [], 'Pre-test Scores': [], 'Post-test Scores': []}
+
             # redundant conditionals are purely to adjust dataframe's height
             if dataset is not None:
                 try:
@@ -87,41 +86,41 @@ def calculate(workspace_id: str) -> None:
     dataframe = st.session_state.workspaces[workspace_id]['dataframe']
     if dataframe is not None:
         try:
-            pre_heading         = dataframe.columns[1] # columns could be named differently, so define it as a numerical location
-            post_heading        = dataframe.columns[2]
-            pre_scores          = dataframe[pre_heading]
-            post_scores         = dataframe[post_heading]
-            sample_size         = len(dataframe)
-            students_improved   = int((post_scores > pre_scores).sum())
-            students_unchanged  = int((post_scores == pre_scores).sum())
-            students_regressed  = int((post_scores < pre_scores).sum())
+            pre_heading        = dataframe.columns[1] # columns could be named differently, so define it as a numerical location
+            post_heading       = dataframe.columns[2]
+            pre_scores         = dataframe[pre_heading]
+            post_scores        = dataframe[post_heading]
+            sample_size        = len(dataframe)
+            students_improved  = int((post_scores > pre_scores).sum())
+            students_unchanged = int((post_scores == pre_scores).sum())
+            students_regressed = int((post_scores < pre_scores).sum())
         
             st.session_state.workspaces[workspace_id]['dataframe_statistics'].update(
                 {
-                    'students_improved': students_improved,
+                    'students_improved':  students_improved,
                     'students_unchanged': students_unchanged,
                     'students_regressed': students_regressed,
+                    'sample_size':        sample_size,
                 }
             )
 
-            st.session_state.workspaces[workspace_id]['dataframe_statistics'].update({'sample_size': sample_size})
         except:
             st.error('**RUNTIME ERROR**: Dataframe scope error.')
 
         try:
-            pre_min     = pre_scores.min()
-            pre_max     = pre_scores.max()
-            pre_range   = pre_max - pre_min
-            pre_mean    = pre_scores.mean()
-            pre_q1      = pre_scores.quantile(0.25)
-            pre_q3      = pre_scores.quantile(0.75)
-            pre_iqr     = pre_q3 - pre_q1
-            pre_std     = pre_scores.std()
+            pre_min   = pre_scores.min()
+            pre_max   = pre_scores.max()
+            pre_range = pre_max - pre_min
+            pre_mean  = pre_scores.mean()
+            pre_q1    = pre_scores.quantile(0.25)
+            pre_q3    = pre_scores.quantile(0.75)
+            pre_iqr   = pre_q3 - pre_q1
+            pre_std   = pre_scores.std()
 
             st.session_state.workspaces[workspace_id]['pre_score_statistics'].update(
                 {
                     'pre_min': pre_max, 'pre_max': pre_max, 'pre_range': pre_range, 'pre_mean': pre_mean,
-                    'pre_q1': pre_q1, 'pre_q3': pre_q3, 'pre_iqr': pre_iqr, 'pre_std': pre_std,
+                    'pre_q1':  pre_q1,  'pre_q3':  pre_q3,  'pre_iqr':   pre_iqr,   'pre_std':  pre_std,
                 }
             )
 
@@ -129,19 +128,19 @@ def calculate(workspace_id: str) -> None:
             st.error('**RUNTIME ERROR**: Pre-test calculation error.')
 
         try:
-            post_min    = post_scores.min()
-            post_max    = post_scores.max()
-            post_range  = post_max - post_min
-            post_mean   = post_scores.mean()
-            post_q1     = post_scores.quantile(0.25)
-            post_q3     = post_scores.quantile(0.75)
-            post_iqr    = post_q3 - post_q1
-            post_std    = post_scores.std()
+            post_min   = post_scores.min()
+            post_max   = post_scores.max()
+            post_range = post_max - post_min
+            post_mean  = post_scores.mean()
+            post_q1    = post_scores.quantile(0.25)
+            post_q3    = post_scores.quantile(0.75)
+            post_iqr   = post_q3 - post_q1
+            post_std   = post_scores.std()
 
             st.session_state.workspaces[workspace_id]['post_score_statistics'].update(
                 {
                     'post_min': post_min, 'post_max': post_max, 'post_range': post_range, 'post_mean': post_mean,
-                    'post_q1': post_q1, 'post_q3': post_q3, 'post_iqr': post_iqr, 'post_std': post_std,
+                    'post_q1':  post_q1,  'post_q3':  post_q3,  'post_iqr':   post_iqr,   'post_std':  post_std,
                 }
             )
 
@@ -149,10 +148,10 @@ def calculate(workspace_id: str) -> None:
             st.error('**RUNTIME ERROR**: Post-test calculation error.')
 
         try:
-            mean_diff               = post_mean - pre_mean
-            pooled_std_numerator    = ((sample_size - 1) * pre_std ** 2) + ((sample_size - 1) * post_std ** 2)
-            pooled_std_denominator  = sample_size * 2 - 2
-            pooled_std              = np.sqrt(pooled_std_numerator / pooled_std_denominator)
+            mean_diff              = post_mean - pre_mean
+            pooled_std_numerator   = ((sample_size - 1) * pre_std ** 2) + ((sample_size - 1) * post_std ** 2)
+            pooled_std_denominator = sample_size * 2 - 2
+            pooled_std             = np.sqrt(pooled_std_numerator / pooled_std_denominator)
 
             if pooled_std > 0:
                 cohens_d = mean_diff / pooled_std 
@@ -163,20 +162,19 @@ def calculate(workspace_id: str) -> None:
 
             st.session_state.workspaces[workspace_id]['dataframe_statistics'].update(
                 {
-                    'sample_size': sample_size, 'mean_diff': mean_diff, 'pooled_std': pooled_std, 'cohens_d': cohens_d,
+                    'mean_diff':   mean_diff,   'pooled_std':     pooled_std,     'cohens_d': cohens_d,
                     'hinge_point': hinge_point, 'is_above_hinge': is_above_hinge,
                 }
             )
 
         except:
             st.error("**RUNTIME ERROR**: Effect size (Cohen's d) calculation error.")
-
     else:
         st.warning('**WARNING**: Dataframe has not been detected.')
 
-def metric_summary(workspace_id: str) -> None:
+def standard_statistics(workspace_id: str) -> None:
     with st.container(border=True):
-        st.markdown('# Metric Summary', unsafe_allow_html=True)
+        st.markdown('## Standard Statistics', unsafe_allow_html=True)
 
         dataframe = st.session_state.workspaces[workspace_id]['dataframe']
         col_1, col_2 = st.columns(2)
@@ -281,35 +279,31 @@ def metric_summary(workspace_id: str) -> None:
 
 def delta_zero_color(delta_zero_color: str, inverse: bool, value) -> str: # the color of delta at 0
     if delta_zero_color == 'green':
-        if value == 0.0:    return 'green'
-        elif inverse:       return 'inverse'
-        else:               return 'normal'
+        if value == 0.0: return 'green'
     elif delta_zero_color == 'red':
-        if value == 0.0:    return 'green'
-        elif inverse:       return 'inverse'
-        else:               return 'normal'
+        if value == 0.0: return 'red'
     else:
-        if value == 0.0:    return 'green'
-        elif inverse:       return 'inverse'
-        else:               return 'normal'
+        if value == 0.0: return 'off'
+    if inverse: return 'inverse'
+    else:       return 'normal'
 
 def key_metrics(workspace_id: str) -> None:
     dataframe = st.session_state.workspaces[workspace_id]['dataframe']
     with st.container(border=True):
-        st.markdown('# Key Metrics', unsafe_allow_html=True)
+        st.markdown('## Key Metrics', unsafe_allow_html=True)
         
         col_1, col_2 = st.columns([1, 3])
         if dataframe is not None:
-            sample_size     = st.session_state.workspaces[workspace_id]['dataframe_statistics']['sample_size']
-            post_mean       = st.session_state.workspaces[workspace_id]['post_score_statistics']['post_mean']
-            pre_mean        = st.session_state.workspaces[workspace_id]['pre_score_statistics']['pre_mean']
-            mean_diff       = st.session_state.workspaces[workspace_id]['dataframe_statistics']['mean_diff']
-            cohens_d        = st.session_state.workspaces[workspace_id]['dataframe_statistics']['cohens_d']
-            hinge_point     = st.session_state.workspaces[workspace_id]['dataframe_statistics']['hinge_point']
-            is_above_hinge  = st.session_state.workspaces[workspace_id]['dataframe_statistics']['is_above_hinge']
-            pre_std         = st.session_state.workspaces[workspace_id]['pre_score_statistics']['pre_std']
-            post_std        = st.session_state.workspaces[workspace_id]['post_score_statistics']['post_std']
-            pooled_std      = st.session_state.workspaces[workspace_id]['dataframe_statistics']['pooled_std']
+            sample_size    = st.session_state.workspaces[workspace_id]['dataframe_statistics']['sample_size']
+            post_mean      = st.session_state.workspaces[workspace_id]['post_score_statistics']['post_mean']
+            pre_mean       = st.session_state.workspaces[workspace_id]['pre_score_statistics']['pre_mean']
+            mean_diff      = st.session_state.workspaces[workspace_id]['dataframe_statistics']['mean_diff']
+            cohens_d       = st.session_state.workspaces[workspace_id]['dataframe_statistics']['cohens_d']
+            hinge_point    = st.session_state.workspaces[workspace_id]['dataframe_statistics']['hinge_point']
+            is_above_hinge = st.session_state.workspaces[workspace_id]['dataframe_statistics']['is_above_hinge']
+            pre_std        = st.session_state.workspaces[workspace_id]['pre_score_statistics']['pre_std']
+            post_std       = st.session_state.workspaces[workspace_id]['post_score_statistics']['post_std']
+            pooled_std     = st.session_state.workspaces[workspace_id]['dataframe_statistics']['pooled_std']
 
             try:
                 with col_1:
@@ -344,33 +338,29 @@ def key_metrics(workspace_id: str) -> None:
                             delta={'reference': hinge_point, 'suffix': ' from hinge'},
                             gauge={
                                 'axis': {
-                                    'range': [0, 1.5],
+                                    'range':    [0.0, 1.5],
                                     'tickvals': [0.2, 0.4, 0.8, 1.2],
-                                    'ticktext': ['Small', 'Hinge Point', 'Moderate', 'Large']
+                                    'ticktext': ['Small', 'Hinge Point', 'Moderate', 'Large'],
                                 },
                                 'bar': {'color': color},
                                 'steps': [
-                                    {'range': [0, 0.2],  'color': '#000000'},
+                                    {'range': [0.0, 0.2], 'color': '#000000'},
                                     {'range': [0.2, 0.4], 'color': '#252525'},
                                     {'range': [0.4, 0.8], 'color': '#444444'},
                                     {'range': [0.8, 1.2], 'color': '#656565'},
                                     {'range': [1.2, 1.5], 'color': '#7c7c7c'},
                                 ],
                                 'threshold': {
-                                    'line': {'color': 'white', 'width': 2},
+                                    'line':      {'color': 'white', 'width': 2},
                                     'thickness': 0.75,
-                                    'value': hinge_point,
+                                    'value':     hinge_point,
                                 },
                             },
                         )
-                    
                     )
 
-                    gauge.update_layout(
-                        height=250, margin=dict(t=60, b=0, l=40, r=40),
-                        paper_bgcolor='rgba(0,0,0,0)',
-                    )
-                    
+                    gauge.update_layout(height=250, margin=dict(t=60, b=0, l=40, r=40))
+
                     with st.container(border=True):
                         st.plotly_chart(gauge, width='stretch', height=255)
 
@@ -401,7 +391,7 @@ def key_metrics(workspace_id: str) -> None:
                             'axis': {
                                 'range': [0, 1.5],
                                 'tickvals': [0.2, 0.4, 0.8, 1.2],
-                                'ticktext': ['Small Effect', 'Hinge Point', 'Moderate Effect', 'Large Effect']
+                                'ticktext': ['Small Effect', 'Hinge Point', 'Moderate Effect', 'Large Effect'],
                             },
                             'bar': {'color': '#464646'},
                             'steps': [
@@ -475,7 +465,378 @@ def key_metrics(workspace_id: str) -> None:
                 value=0, border=True, delta_color='off',
                 delta=f'{0} ({0:.2f}%)',
             )
-                    
+
+def comparison_histogram(workspace_id: str) -> None:
+    dataframe = st.session_state.workspaces[workspace_id]['dataframe']
+    with st.container(border=True):
+        st.markdown('## Comparison Histogram', unsafe_allow_html=True)
+
+        if dataframe is not None:
+            try:
+                pre_scores  = dataframe[dataframe.columns[1]]
+                post_scores = dataframe[dataframe.columns[2]]
+
+                figure = go.Figure()
+                figure.add_trace(
+                    go.Histogram(
+                        x=pre_scores, name='Pre-test',
+                        opacity=0.5, marker=dict(color='#a3d1fe'),
+                        xbins=dict(start=0, end=101, size=5), # end at 101 to show scores at 100
+                    )
+                )
+            
+                figure.add_trace(
+                    go.Histogram(
+                        x=post_scores, name='Post-test',
+                        opacity=0.5, marker=dict(color='#005cb8'),
+                        xbins=dict(start=0, end=101, size=5), # end at 101 to show scores at 100
+                    )
+                )
+
+                figure.update_layout(
+                    barmode='overlay',
+                    xaxis_title='Score', yaxis_title='Number of Students',
+                    legend_title_text='Assessment',
+                )
+
+                st.plotly_chart(figure, width='stretch')
+            except:
+                st.error('**RUNTIME ERROR**: Comparison histogram generation error.')
+        else:
+            figure = go.Figure()
+            figure.add_trace(
+                go.Histogram(
+                    x=[0], name='Pre-test',
+                    opacity=0.5, marker=dict(color='#3d4c5b'),
+                    xbins=dict(start=0, end=101, size=5), # end at 101 to show scores at 100
+                )
+            )
+        
+            figure.add_trace(
+                go.Histogram(
+                    x=[0], name='Post-test',
+                    opacity=0.5, marker=dict(color='#2a2a2a'),
+                    xbins=dict(start=0, end=101, size=5), # end at 101 to show scores at 100
+                )
+            )
+
+            figure.update_layout(
+                barmode='overlay',
+                xaxis_title='Score', yaxis_title='Number of Students',
+                legend_title_text='Assessment',
+            )
+
+            st.plotly_chart(figure, width='stretch')
+               
+def baseline_histograms(workspace_id: str) -> None:
+    dataframe = st.session_state.workspaces[workspace_id]['dataframe']
+    with st.container(border=True):
+        st.markdown('## Baseline Histograms', unsafe_allow_html=True)
+
+        col_1, col_2 = st.columns(2)
+        try:
+            pre_baseline = col_1.slider(
+                'Pre-test Baseline', min_value=0, max_value=100,
+                value=0, step=1, key=f'pre_baseline_{workspace_id}',
+            )
+
+            post_baseline = col_2.slider(
+                'Post-test Baseline', min_value=0, max_value=100,
+                value=0, step=1, key=f'post_baseline_{workspace_id}',
+            )
+
+        except:
+                st.error('**RUNTIME ERROR**: Baseline slider creation error.')
+
+        if dataframe is not None:
+            pre_scores  = dataframe[dataframe.columns[1]]
+            post_scores = dataframe[dataframe.columns[2]]
+            sample_size = st.session_state.workspaces[workspace_id]['dataframe_statistics']['sample_size']
+
+            try:
+                pre_figure = px.histogram(
+                    dataframe, x=pre_scores, nbins=10,
+                    color_discrete_sequence=['#a3d1fe'],
+                    labels={'x': 'Pre-test Score'},
+                )
+
+                pre_figure.add_vline(
+                    x=pre_baseline, line_dash='dash',
+                    annotation_text=f'Baseline = {pre_baseline}',
+                    annotation_position='top',
+                )
+
+                pre_figure.update_layout(
+                    xaxis_title='Pre-test Score', yaxis_title='Students',
+                )
+
+                col_1.plotly_chart(pre_figure, width='stretch', height=350)
+
+                post_figure = px.histogram(
+                    dataframe, x=post_scores, nbins=10,
+                    color_discrete_sequence=['#005cb8'],
+                    labels={'x': 'Post-test Score'},
+                )
+
+                post_figure.add_vline(
+                    x=post_baseline, line_dash='dash',
+                    annotation_text=f'Baseline = {post_baseline}',
+                    annotation_position='top',
+                )
+
+                post_figure.update_layout(
+                    xaxis_title='Post-test Score', yaxis_title='Students',
+                )
+
+                col_2.plotly_chart(post_figure, width='stretch', height=350)
+            except:
+                st.error('**RUNTIME ERROR**: Baseline histogram generation error.')
+
+            def baseline_counts(scores, baseline):
+                below, at, above = 0, 0, 0
+                for score in scores:
+                    if score > baseline: below += 1
+                    elif score < baseline: above += 1
+                    else: at += 1
+                return below, at, above
+
+            pre_below, pre_at, pre_above    = baseline_counts(pre_scores, pre_baseline)
+            post_below, post_at, post_above = baseline_counts(post_scores, post_baseline)
+
+            col_1.dataframe(
+                {
+                    'Metric': [
+                        'Students below baseline',
+                        'Students at baseline',
+                        'Students above baseline',
+                    ],
+                    'Count': [pre_below, pre_at, pre_above],
+                    'Percent': [
+                        f'{pre_below / sample_size * 100:.2f}%',
+                        f'{pre_at / sample_size * 100:.2f}%',
+                        f'{pre_above / sample_size * 100:.2f}%',
+                    ],
+                }
+            )
+
+            col_2.dataframe(
+                {
+                    'Metric': [
+                        'Students below baseline',
+                        'Students at baseline',
+                        'Students above baseline',
+                    ],
+                    'Count': [post_below, post_at, post_above],
+                    'Percent': [
+                        f'{post_below / sample_size * 100:.2f}%',
+                        f'{post_at / sample_size * 100:.2f}%',
+                        f'{post_above / sample_size * 100:.2f}%',
+                    ],
+                }
+            )
+
+            st.caption('Set a score baseline to reveal where you students stand compared to the baseline.')
+
+        else:
+            pre_figure = px.histogram(
+                dataframe, x=[0], nbins=10,
+                color_discrete_sequence=['#3d4c5b'],
+                labels={'x': 'Pre-test Score'},
+            )
+
+            pre_figure.add_vline(
+                x=pre_baseline, line_dash='dash',
+                annotation_text=f'Baseline = {pre_baseline}',
+                annotation_position='top',
+            )
+
+            pre_figure.update_layout(
+                xaxis_title='Pre-test Score', yaxis_title='Students',
+            )
+
+            col_1.plotly_chart(pre_figure, width='stretch', height=350)
+
+            post_figure = px.histogram(
+                dataframe, x=[0], nbins=10,
+                color_discrete_sequence=['#2a2a3a'],
+                labels={'x': 'Post-test Score'},
+            )
+
+            post_figure.add_vline(
+                x=post_baseline, line_dash='dash',
+                annotation_text=f'Baseline = {post_baseline}',
+                annotation_position='top',
+            )
+
+            post_figure.update_layout(
+                xaxis_title='Post-test Score', yaxis_title='Students',
+            )
+
+            col_2.plotly_chart(post_figure, width='stretch', height=350)
+
+            col_1.dataframe(
+                {
+                    'Metric': [
+                        'Students below baseline',
+                        'Students at baseline',
+                        'Students above baseline',
+                    ],
+                    'Count': ['', '', ''],
+                    'Percent': ['', '', ''],
+                }
+            )
+
+            col_2.dataframe(
+                {
+                    'Metric': [
+                        'Students below baseline',
+                        'Students at baseline',
+                        'Students above baseline',
+                    ],
+                    'Count': ['', '', ''],
+                    'Percent': ['', '', ''],
+                }
+            )
+
+            st.caption('Set a score baseline to reveal where you students stand compared to the baseline.')
+            
+def box_plot(workspace_id: str) -> None:
+    dataframe = st.session_state.workspaces[workspace_id]['dataframe']
+    with st.container(border=True):
+        st.markdown('## Box Plot Comparison', unsafe_allow_html=True)
+
+        if dataframe is not None:
+            try:
+                pre_scores  = dataframe[dataframe.columns[1]]
+                post_scores = dataframe[dataframe.columns[2]]
+
+                fig = go.Figure()
+                fig.add_trace(
+                    go.Box(
+                        y=pre_scores, name='Pre-test',
+                        marker=dict(color='#a3d1fe'), line=dict(color='#a3d1fe'),
+                        boxpoints='all', jitter=0.05, pointpos=-1.5,
+                    )
+                )
+                
+                fig.add_trace(
+                    go.Box(
+                        y=post_scores, name='Post-test',
+                        marker=dict(color='#005cb8'), line=dict(color='#005cb8'),
+                        boxpoints='all', jitter=0.05, pointpos=-1.5,
+                    )
+                )
+
+                fig.update_layout(
+                    yaxis_title='Score', xaxis_title='Assessment',
+                    showlegend=False,
+                )
+
+                st.plotly_chart(fig, width='stretch', height=400)
+            except:
+                st.error('**RUNTIME ERROR**: Box plot error.')
+        else:
+            fig = go.Figure()
+            fig.add_trace(
+                go.Box(
+                    y=[0], name='Pre-test',
+                    marker=dict(color='#a3d1fe'), line=dict(color='#a3d1fe'),
+                    boxpoints='all', jitter=0.05, pointpos=-1.5,
+                )
+            )
+            
+            fig.add_trace(
+                go.Box(
+                    y=[100], name='Post-test',
+                    marker=dict(color='#005cb8'), line=dict(color='#005cb8'),
+                    boxpoints='all', jitter=0.05, pointpos=-1.5,
+                )
+            )
+
+            fig.update_layout(
+                yaxis_title='Score', xaxis_title='Assessment',
+                showlegend=False,
+            )
+
+            st.plotly_chart(fig, width='stretch', height=400)
+
+def scatter_plot(workspace_id: str) -> None:
+    dataframe = st.session_state.workspaces[workspace_id]['dataframe']
+    with st.container(border=True):
+        st.markdown('## Pre- vs. Post-test Score Scatter Plot', unsafe_allow_html=True)
+
+        if dataframe is not None:
+            try:
+                student_heading = dataframe.columns[0]
+                pre_scores      = dataframe[dataframe.columns[1]]
+                post_scores     = dataframe[dataframe.columns[2]]
+                score_min       = int(min(pre_scores.min(), post_scores.min())) - 5
+                score_max       = int(max(pre_scores.max(), post_scores.max())) + 5
+
+                figure = go.Figure()
+                figure.add_trace(
+                    go.Scatter(
+                        x=[score_min, score_max], y=[score_min, score_max],
+                        mode='lines',
+                        line=dict(color='white', dash='dash', width=1),
+                        name='No Change',
+                    )
+                )
+
+                figure.add_trace(
+                    go.Scatter(
+                        x=pre_scores, y=post_scores,
+                        mode='markers',
+                        marker=dict(color='#a3d1fe', size=8, opacity=1),
+                        text=dataframe[student_heading],
+                        hovertemplate='<b>%{text}</b><br>Pre-test score: %{x}<br>Post-test score: %{y}<extra></extra>',
+                        name='Students',
+                    )
+                )
+
+                figure.update_layout(
+                    xaxis_title='Pre-test Score',
+                    yaxis_title='Post-test Score',
+                    xaxis=dict(range=[score_min, score_max + 1]), # add 1 to show the max label
+                    yaxis=dict(range=[score_min, score_max + 1]), # add 1 to show the max label
+                )
+
+                st.plotly_chart(figure, width='stretch', height=400)
+                st.caption('Points above the dashed line improved; below regressed.')
+
+            except:
+                st.error('**RUNTIME ERROR**: Scatter plot generation error.')
+        else:
+            figure = go.Figure()
+            figure.add_trace(
+                go.Scatter(
+                    x=[0, 100], y=[0, 100],
+                    mode='lines',
+                    line=dict(color='white', dash='dash', width=1),
+                    name='No Change',
+                )
+            )
+
+            figure.add_trace(
+                go.Scatter(
+                    x=[0], y=[100],
+                    mode='markers',
+                    marker=dict(color='#a3d1fe', size=8, opacity=1),
+                    text='student',
+                    hovertemplate='<b>%{text}</b><br>Pre-test score: %{x}<br>Post-test score: %{y}<extra></extra>',
+                    name='Students',
+                )
+            )
+
+            figure.update_layout(
+                xaxis_title='Pre-test Score',
+                yaxis_title='Post-test Score',
+                xaxis=dict(range=[0, 101]), # add 1 to show the max label
+                yaxis=dict(range=[0, 101]), # add 1 to show the max label
+            )
+
+            st.plotly_chart(figure, width='stretch', height=400)
+            st.caption('Points above the dashed line improved; below regressed.')
 
 def make_workspace_page(workspace_id: str) -> callable:
     def workspace_page(): # convert workspace_id to a callable that can be used as a page
@@ -490,7 +851,17 @@ def make_workspace_page(workspace_id: str) -> callable:
 
         header(workspace_name)
 
-        tabs = st.tabs(['Name & Description', 'File Upload', 'Metric Summary', 'Key Metrics'])
+        tabs = st.tabs(
+            [
+                'Name & Description',
+                'File Upload',
+                'Metric Summary',
+                'Histograms',
+                'Box Plot',
+                'Scatter Plot',
+                'File Export',
+            ]
+        )
 
         with tabs[0]:
             st.session_state.workspaces[workspace_id]['name'] = st.text_area(
@@ -510,14 +881,27 @@ def make_workspace_page(workspace_id: str) -> callable:
         check_header(workspace_name=workspace_name, workspace_id=workspace_id)
 
         with tabs[1]:
+            st.markdown('# File Upload', unsafe_allow_html=True)
             file_upload_and_preview(workspace_id=workspace_id)
 
         calculate(workspace_id=workspace_id)
 
         with tabs[2]:
-            metric_summary(workspace_id=workspace_id)
+            st.markdown('# Metric Summary', unsafe_allow_html=True)
+            key_metrics(workspace_id=workspace_id)
+            standard_statistics(workspace_id=workspace_id)
 
         with tabs[3]:
-            key_metrics(workspace_id=workspace_id)
+            st.markdown('# Histograms', unsafe_allow_html=True)
+            baseline_histograms(workspace_id=workspace_id)
+            comparison_histogram(workspace_id=workspace_id)
+        
+        with tabs[4]:
+            st.markdown('# Box Plot', unsafe_allow_html=True)
+            box_plot(workspace_id=workspace_id)
+
+        with tabs[5]:
+            st.markdown('# Scatter Plot', unsafe_allow_html=True)
+            scatter_plot(workspace_id=workspace_id)
 
     return workspace_page
