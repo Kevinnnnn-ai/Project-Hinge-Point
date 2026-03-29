@@ -89,7 +89,7 @@ def aggregate_metrics_panel(aggregate_metrics: dict) -> None:
 
         try:
             col_2.metric(
-                label='Total Number of Students (NET x)', # SYMBOL NEEDED ===================================================
+                label='Total Number of Students (∑x)',
                 value=aggregate_metrics['total_students'],
                 border=True,
             )
@@ -296,8 +296,12 @@ def student_outcome_panel(workspaces: list[dict]) -> None:
         st.markdown('Proportion of students who improved, unchanged, or regressed per workspace.', unsafe_allow_html=True)
 
         try:
-            students_improved, students_unchanged, students_regressed = [], [], []
-            workspace_names, sample_sizes = [], []
+            workspace_names    = []
+            students_improved  = []
+            students_unchanged = []
+            students_regressed = []
+            sample_sizes       = []
+
             for workspace in workspaces:
                 workspace_names.append(workspace['workspace_data']['name'])
                 students_improved.append(workspace['workspace_data']['dataframe_statistics']['students_improved'])
@@ -305,81 +309,108 @@ def student_outcome_panel(workspaces: list[dict]) -> None:
                 students_regressed.append(workspace['workspace_data']['dataframe_statistics']['students_regressed'])
                 sample_sizes.append(workspace['workspace_data']['dataframe_statistics']['sample_size'])
 
-            imp_pct = [i / n * 100 for i, n in zip(students_improved, sample_sizes)]
-            unc_pct = [u / n * 100 for u, n in zip(students_unchanged, sample_sizes)]
-            reg_pct = [r / n * 100 for r, n in zip(students_regressed, sample_sizes)]
+            improved_percents, improved_value_text = [], []
+            for improved_student, sample_size in zip(students_improved, sample_sizes):
+                improved_percents.append(improved_student / sample_size * 100)
 
-            fig = go.Figure()
+            for percent in improved_percents:
+                improved_value_text.append(f'{percent:.0f}%')
 
-            fig.add_trace(go.Bar(
-                name='Improved',
-                x=workspace_names, y=imp_pct,
-                marker_color='#5ae086',
-                text=[f'{v:.0f}%' for v in imp_pct],
-                textposition='inside',
-            ))
+            unchanged_percents, unchanged_value_text = [], []
+            for unchanged_percent, sample_size in zip(students_unchanged, sample_sizes):
+                unchanged_percents.append(unchanged_percent / sample_size * 100)
 
-            fig.add_trace(go.Bar(
-                name='Unchanged',
-                x=workspace_names, y=unc_pct,
-                marker_color='#7c7c7c',
-                text=[f'{v:.0f}%' for v in unc_pct],
-                textposition='inside',
-            ))
+            for percent in unchanged_percents:
+                unchanged_value_text.append(f'{percent:.0f}%')
 
-            fig.add_trace(go.Bar(
-                name='Regressed',
-                x=workspace_names, y=reg_pct,
-                marker_color='#ff6c6c',
-                text=[f'{v:.0f}%' for v in reg_pct],
-                textposition='inside',
-            ))
+            regressed_percents, regressed_value_text = [], []
+            for regressed_percent, sample_size in zip(students_regressed, sample_sizes):
+                regressed_percents.append(regressed_percent / sample_size * 100)
 
-            fig.update_layout(
+            for percent in regressed_percents:
+                regressed_value_text.append(f'{percent:.0f}%')
+
+            figure = go.Figure()
+
+            figure.add_trace(
+                go.Bar(
+                    name='Improved',
+                    x=workspace_names, y=improved_percents,
+                    marker_color='#5ae086',
+                    text=improved_value_text,
+                    textposition='inside',
+                )
+            )
+
+            figure.add_trace(
+                go.Bar(
+                    name='Unchanged',
+                    x=workspace_names, y=unchanged_percents,
+                    marker_color='#7c7c7c',
+                    text=unchanged_value_text,
+                    textposition='inside',
+                )
+            )
+
+            figure.add_trace(
+                go.Bar(
+                    name='Regressed',
+                    x=workspace_names, y=regressed_percents,
+                    marker_color='#ff6c6c',
+                    text=regressed_value_text,
+                    textposition='inside',
+                )
+            )
+
+            figure.update_layout(
                 barmode='stack',
-                xaxis_title='Workspace',
-                yaxis_title='% of Students',
+                xaxis_title='Workspace', yaxis_title='Percent of Students',
                 yaxis=dict(range=[0, 100], ticksuffix='%', gridcolor='#3a3a3a'),
                 height=320,
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
                 legend_title_text='Outcome',
             )
 
-            st.plotly_chart(fig, use_container_width=True)
-
+            st.plotly_chart(figure, width='stretch')
         except:
-            st.error('**RUNTIME ERROR**: Student outcome chart error.')
+            st.error('**RUNTIME ERROR**: Student outcome chart generation error.')
 
-def workspace_summary_table(workspaces: list[dict]) -> None:
+
+def compressed_workspace_summary_table(workspaces: list[dict]) -> None:
     with st.container(border=True):
-        st.markdown('## Workspace Summary Table', unsafe_allow_html=True)
+        st.markdown('## Compressed Workspace Summary Table', unsafe_allow_html=True)
 
         try:
             rows = []
-            for w in workspaces:
-                ds  = w['workspace_data']['dataframe_statistics']
-                pre = w['workspace_data']['pre_score_statistics']
-                pst = w['workspace_data']['post_score_statistics']
-                rows.append({
-                    'Workspace':        w['workspace_data']['name'],
-                    'n':                ds.get('sample_size'),
-                    'Pre Mean':         f"{pre.get('pre_mean', 0):.2f}",
-                    'Post Mean':        f"{pst.get('post_mean', 0):.2f}",
-                    'Δ Mean':           f"{ds.get('mean_diff', 0):.2f}",
-                    'Pre SD':           f"{pre.get('pre_std', 0):.2f}",
-                    'Post SD':          f"{pst.get('post_std', 0):.2f}",
-                    'Pooled SD':        f"{ds.get('pooled_std', 0):.2f}",
-                    "Cohen's d":        f"{ds.get('cohens_d', 0):.2f}",
-                    '≥ Hinge (0.40)':   '✓' if ds.get('is_above_hinge') else '✗',
-                    'Improved':         ds.get('students_improved'),
-                    'Unchanged':        ds.get('students_unchanged'),
-                    'Regressed':        ds.get('students_regressed'),
-                })
+            for workspace in workspaces:
+                dataframe_stats  = workspace['workspace_data']['dataframe_statistics']
+                pre_stats        = workspace['workspace_data']['pre_score_statistics']
+                post_stats       = workspace['workspace_data']['post_score_statistics']
 
-            df = pd.DataFrame(rows)
-            st.dataframe(df, use_container_width=True, hide_index=True)
+                if dataframe_stats['is_above_hinge']:
+                    is_above_hinge = 'Yes'
+                else:
+                    is_above_hinge = 'No'
 
+                rows.append(
+                    {
+                        'Workspace': workspace['workspace_data']['name'],
+                        'n':         dataframe_stats['sample_size'],
+                        'x̄₁':        f'{pre_stats['pre_mean']:.2f}',
+                        'x̄₂':        f'{post_stats['post_mean']:.2f}',
+                        'Δx̄':        f'{dataframe_stats['mean_diff']:.2f}',
+                        's₁':        f'{pre_stats['pre_std']:.2f}',
+                        's₂':        f'{post_stats['post_std']:.2f}',
+                        'sₚ':        f'{dataframe_stats['pooled_std']:.2f}',
+                        'd':         f'{dataframe_stats['cohens_d']:.2f}',
+                        'd ≥ 0.40':  is_above_hinge,
+                        'Improved':  dataframe_stats['students_improved'],
+                        'Unchanged': dataframe_stats['students_unchanged'],
+                        'Regressed': dataframe_stats['students_regressed'],
+                    }
+                )
+
+            dataframe = pd.DataFrame(rows)
+            st.dataframe(dataframe, width='stretch', hide_index=True)
         except:
             st.error('**RUNTIME ERROR**: Workspace summary table error.')
 
@@ -388,7 +419,9 @@ if __name__ == '__main__':
     header()
 
     active_workspaces = get_active_workspaces()
+
     if not no_data_guard(active_workspaces):
+        
         aggregate_metrics = get_aggregate_statistics(active_workspaces)
         aggregate_metrics_panel(aggregate_metrics)
 
@@ -399,4 +432,4 @@ if __name__ == '__main__':
             pre_post_mean_panel(active_workspaces)
 
         student_outcome_panel(active_workspaces)
-        workspace_summary_table(active_workspaces)
+        compressed_workspace_summary_table(active_workspaces)
