@@ -28,10 +28,10 @@ def get_aggregate_statistics(workspaces: list[dict]) -> dict:
     total_students, total_improved, total_unchanged, total_regressed = 0, 0, 0, 0
     cohens_d_values, above_hinge_count = [], 0
     for workspace in workspaces:
-        total_students   += workspace['workspace_data']['dataframe_statistics']['sample_size']
-        total_improved   += workspace['workspace_data']['dataframe_statistics']['students_improved']
-        total_unchanged  += workspace['workspace_data']['dataframe_statistics']['students_unchanged']
-        total_regressed  += workspace['workspace_data']['dataframe_statistics']['students_regressed']
+        total_students  += workspace['workspace_data']['dataframe_statistics']['sample_size']
+        total_improved  += workspace['workspace_data']['dataframe_statistics']['students_improved']
+        total_unchanged += workspace['workspace_data']['dataframe_statistics']['students_unchanged']
+        total_regressed += workspace['workspace_data']['dataframe_statistics']['students_regressed']
         cohens_d_values.append(workspace['workspace_data']['dataframe_statistics']['cohens_d'])
 
         if workspace['workspace_data']['dataframe_statistics']['is_above_hinge']:

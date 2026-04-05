@@ -29,26 +29,27 @@ def value_proposition() -> None: # what is the point of Project Hinge Point in a
             st.markdown('#### Visual Insights', unsafe_allow_html=True)
 
 def story() -> None: # how did Project Hinge Point come to be and why?
-    col_1, col_2 = st.columns([3, 4], vertical_alignment='center')
-    with col_1:
-        st.image('res/placeholder_image.png', width='stretch')
-        st.image('res/placeholder_image.png', width='stretch')
+    with st.container(border=True):
+        col_1, col_2 = st.columns([3, 4], vertical_alignment='center')
+        with col_1:
+            st.image('res/placeholder_image.png', width='stretch')
+            st.image('res/placeholder_image.png', width='stretch')
 
-    col_2.markdown(
-        '''
-        ## The Why
+        col_2.markdown(
+            '''
+            ## The Why
 
-        Teachers collect numerous amounts of classroom data, but turning that data into a *clear*
-        picture of impact has always required specialized statistical tools.
+            Teachers collect numerous amounts of classroom data, but turning that data into a *clear*
+            picture of impact has always required specialized statistical tools.
 
-        Most educators don't have the *time*, *training*, or *access* to those tools. In fact, many
-        important decisions get made on instinct rather than evidence, as patterns in the data can go unnoticed.
+            Most educators don't have the *time*, *training*, or *access* to those tools. In fact, many
+            important decisions get made on instinct rather than evidence, as patterns in the data can go unnoticed.
 
-        :grey-background[Project Hinge Point was built to change that], an *accessible* interface that turns
-        data into insight directly within the hands of the people who need it most.
-        ''',
-        unsafe_allow_html=True,
-    )
+            :grey-background[Project Hinge Point was built to change that], an *accessible* interface that turns
+            data into insight directly within the hands of the people who need it most.
+            ''',
+            unsafe_allow_html=True,
+        )
 
 def mission() -> None: # mission statement
     with st.container(border=True):
@@ -70,20 +71,21 @@ def mission() -> None: # mission statement
         col_2.image('res/placeholder_image.png', width='stretch')
 
 def team() -> None: # about myself and broader goals in the context of this project
-    col_1, col_2 = st.columns([7, 5], vertical_alignment='center')
-    col_1.image('res/placeholder_image.png', width='stretch')
+    with st.container(border=True):
+        col_1, col_2 = st.columns([7, 5], vertical_alignment='center')
+        col_1.image('res/placeholder_image.png', width='stretch')
 
-    col_2.markdown(
-        '''
-        ## The Creator & Developer
+        col_2.markdown(
+            '''
+            ## The Creator & Developer
 
-        My name is *Kevin Jie*, and I built Project Hinge Point to 
-        :grey-background[bridge the gap between educational research]
-        and classroom practices at *Temple High School*. I want to focus on combining statistical analysis
-        with graphical interfaces that :grey-background[anyone can use].
-        ''',
-        unsafe_allow_html=True,
-    )
+            My name is *Kevin Jie*, and I built Project Hinge Point to 
+            :grey-background[bridge the gap between educational research]
+            and classroom practices at *Temple High School*. I want to focus on combining statistical analysis
+            with graphical interfaces that :grey-background[anyone can use].
+            ''',
+            unsafe_allow_html=True,
+        )
 
 def credibility() -> None: # why is the project trustworthy and reliable?
     with st.container(border=True):
@@ -117,23 +119,24 @@ def credibility() -> None: # why is the project trustworthy and reliable?
         )
 
 def call_to_action() -> None: # start using Project Hinge Point now
-    col_1, col_2 = st.columns(2, vertical_alignment='center')
-    col_1.markdown(
-        '''
-        ## Ready to Get Started?
+    with st.container(border=True):
+        col_1, col_2 = st.columns(2, vertical_alignment='center')
+        col_1.markdown(
+            '''
+            ## Ready to Get Started?
 
-        Upload your pre- and post-test data and see your instructional
-        impact measured in seconds. :grey-background[No statistics background required].
-        ''',
-        unsafe_allow_html=True,
-    )
+            Upload your pre- and post-test data and see your instructional
+            impact measured in seconds. :grey-background[No statistics background required].
+            ''',
+            unsafe_allow_html=True,
+        )
 
-    col_2.image('res/placeholder_image.png', width='stretch')
+        col_2.image('res/placeholder_image.png', width='stretch')
 
-    button = st.button('Create Workspace', type='primary', width='stretch', icon=':material/add_circle:')
-    if button:
-        get_new_workspace()
-        st.rerun() # makes the newly added workspace viible via sidebar
+        button = st.button('Create Workspace', type='primary', width='stretch', icon=':material/add_circle:')
+        if button:
+            get_new_workspace()
+            st.rerun() # makes the newly added workspace viible via sidebar
 
 if __name__ == '__main__':
     value_proposition()

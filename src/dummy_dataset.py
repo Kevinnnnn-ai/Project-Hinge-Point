@@ -1,31 +1,49 @@
 import streamlit as st
-import pandas as pd # for dummy dataframe
-import numpy as np # for dummy dataset calculations
+import pandas as pd    # for dummy dataframe
+import numpy as np     # for dummy dataset calculations
 
 def set_dummy_dataset(dummy_dataset: str) -> None:
-    dummy_dataframe = pd.read_csv(dummy_dataset) # for simplicity, keep dummy datasets as .csv
+    dummy_dataframe = pd.read_csv(dummy_dataset)
 
     st.session_state.dummy_dataset = {
         'file':      dummy_dataset,
         'dataframe': dummy_dataframe,
         
-        # facilitates cross script statistic accessibility (notably, for dashboard.py)
+        # for cross script statistic accessibility (notably, for dashboard.py)
         'dataframe_statistics': {
-            'sample_size':        None, 'mean_diff':      None, 'pooled_std':        None, 'cohens_d':           None,
-            'hinge_point':        None, 'is_above_hinge': None, 'students_improved': None, 'students_unchanged': None,
+            'sample_size':        None,
+            'mean_diff':          None,
+            'pooled_std':         None,
+            'cohens_d':           None,
+            'hinge_point':        None,
+            'is_above_hinge':     None,
+            'students_improved':  None,
+            'students_unchanged': None,
             'students_regressed': None,
         },
         'pre_score_statistics': {
-            'pre_min': None, 'pre_max': None, 'pre_range': None, 'pre_mean': None,
-            'pre_q1':  None, 'pre_q3':  None, 'pre_iqr':   None, 'pre_std':  None,
+            'pre_min':   None,
+            'pre_max':   None,
+            'pre_range': None,
+            'pre_mean':  None,
+            'pre_q1':    None,
+            'pre_q3':    None,
+            'pre_iqr':   None,
+            'pre_std':   None,
         },
         'post_score_statistics': {
-            'post_min': None, 'post_max': None, 'post_range': None, 'post_mean': None,
-            'post_q1':  None, 'post_q3':  None, 'post_iqr':   None, 'post_std':  None,
+            'post_min':   None,
+            'post_max':   None,
+            'post_range': None,
+            'post_mean':  None,
+            'post_q1':    None,
+            'post_q3':    None,
+            'post_iqr':   None,
+            'post_std':   None,
         },
     }
 
-def calculate() -> None: # no error handling: dummy dataset remains static and is controlled by me
+def calculate() -> None:
     dataframe = st.session_state.dummy_dataset['dataframe']
 
     # preliminary
@@ -88,14 +106,26 @@ def calculate() -> None: # no error handling: dummy dataset remains static and i
 
     st.session_state.dummy_dataset['pre_score_statistics'].update(
         {
-            'pre_min': pre_max, 'pre_max': pre_max, 'pre_range': pre_range, 'pre_mean': pre_mean,
-            'pre_q1':  pre_q1,  'pre_q3':  pre_q3,  'pre_iqr':   pre_iqr,   'pre_std':  pre_std,
+            'pre_min':   pre_max,
+            'pre_max':   pre_max,
+            'pre_range': pre_range,
+            'pre_mean':  pre_mean,
+            'pre_q1':    pre_q1, 
+            'pre_q3':    pre_q3, 
+            'pre_iqr':   pre_iqr,   
+            'pre_std':   pre_std,
         }
     )
 
     st.session_state.dummy_dataset['post_score_statistics'].update(
         {
-            'post_min': post_min, 'post_max': post_max, 'post_range': post_range, 'post_mean': post_mean,
-            'post_q1':  post_q1,  'post_q3':  post_q3,  'post_iqr':   post_iqr,   'post_std':  post_std,
+            'post_min':   post_min,
+            'post_max':   post_max,
+            'post_range': post_range, 
+            'post_mean':  post_mean,
+            'post_q1':    post_q1,  
+            'post_q3':    post_q3,  
+            'post_iqr':   post_iqr,   
+            'post_std':   post_std,
         }
     )
