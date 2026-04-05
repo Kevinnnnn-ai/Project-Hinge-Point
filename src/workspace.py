@@ -38,7 +38,7 @@ def file_upload_and_preview(workspace_id: str) -> None:
                 )
 
         with col_2:
-            if st.button('Delete dataset', width='stretch', icon=':material/do_not_disturb_on:'):
+            if st.button('Delete dataset', type='primary', width='stretch', icon=':material/do_not_disturb_on:'):
                 st.session_state.workspaces[workspace_id]['dataframe'] = None
                 st.session_state['uploader_key'] += 1  # forces uploader wdiget to reset
                 st.rerun()

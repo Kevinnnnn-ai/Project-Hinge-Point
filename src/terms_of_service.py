@@ -222,7 +222,7 @@ def contact() -> None:
             unsafe_allow_html=True,
         )
 
-        if st.button('Go to About', icon=':material/error:', width='stretch'):
+        if st.button('Go to About', type='primary', width='stretch', icon=':material/error:'):
             st.switch_page('about.py')
 
 if __name__ == '__main__':
