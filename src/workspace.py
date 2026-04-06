@@ -846,7 +846,7 @@ def make_workspace_page(workspace_id: str) -> callable:
         st.set_page_config(
             layout='centered',
             page_title=f'{workspace_name} - Project Hinge Point',
-            page_icon='res/placeholder_image.png',
+            page_icon='res/project_hinge_point_logo.png',
         )
 
         header(workspace_name)

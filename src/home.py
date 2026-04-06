@@ -5,7 +5,7 @@ from main import get_pages, get_new_workspace # to redirect users via the button
 st.set_page_config(
     layout='centered',
     page_title='Home - Project Hinge Point',
-    page_icon='res/placeholder_image.png',
+    page_icon='res/project_hinge_point_logo.png',
 )
 
 def how_to_use_card() -> None:
@@ -15,9 +15,9 @@ def how_to_use_card() -> None:
 
         st.markdown(
             '''
-            Learn how to :grey-background[format] your data,
-            :grey-background[navigate] your workspace,
-            and :grey-background[interpret] your visualizations.
+            Learn how to :grey-background[interpret] your data,
+            :grey-background[navigate] your workspaces,
+            and :grey-background[read] your visualizations.
             ''',
             unsafe_allow_html=True,
         )

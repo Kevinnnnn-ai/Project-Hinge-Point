@@ -4,7 +4,7 @@ from main import get_new_workspace # for workspace creation button
 st.set_page_config(
     layout='centered',
     page_title='About - Project Hinge Point',
-    page_icon='res/placeholder_image.png',
+    page_icon='res/project_hinge_point_logo.png',
 )
 
 def value_proposition() -> None:
@@ -19,21 +19,21 @@ def value_proposition() -> None:
     with st.container(border=True):
         col_1, col_2, col_3 = st.columns(3)
         with col_1:
-            st.image('res/placeholder_image.png')
+            st.image('res/instant_analyses.png')
             st.markdown('#### **Instant Analyses**', unsafe_allow_html=True)
         with col_2:
-            st.image('res/placeholder_image.png')
+            st.image('res/clear_comparisons.png')
             st.markdown('#### **Clear Comparisons**', unsafe_allow_html=True)
         with col_3:
-            st.image('res/placeholder_image.png')
+            st.image('res/data_visualizations.png')
             st.markdown('#### **Data Visualizations**', unsafe_allow_html=True)
 
 def the_why() -> None:
     with st.container(border=True):
         col_1, col_2 = st.columns([3, 4], vertical_alignment='center')
         with col_1:
-            st.image('res/placeholder_image.png', width='stretch')
-            st.image('res/placeholder_image.png', width='stretch')
+            st.image('res/the_why_1.png', width='stretch')
+            st.image('res/the_why_2.png', width='stretch')
 
         col_2.markdown(
             '''
@@ -69,12 +69,12 @@ def mission_statement() -> None: # mission statement
             ''',
             unsafe_allow_html=True,
         )
-        col_2.image('res/placeholder_image.png', width='stretch')
+        col_2.image('res/mission_statement.png', width='stretch')
 
 def the_creator_and_developer() -> None:
     with st.container(border=True):
         col_1, col_2 = st.columns([7, 5], vertical_alignment='center')
-        col_1.image('res/placeholder_image.png', width='stretch')
+        col_1.image('res/project_hinge_point_logo.png', width='stretch')
 
         col_2.markdown(
             '''
@@ -133,7 +133,7 @@ def call_to_action() -> None:
             ''',
             unsafe_allow_html=True,
         )
-        col_2.image('res/placeholder_image.png', width='stretch')
+        col_2.image('res/get_started.png', width='stretch')
 
         button = st.button('Create Workspace', type='primary', width='stretch', icon=':material/add_circle:')
         if button:

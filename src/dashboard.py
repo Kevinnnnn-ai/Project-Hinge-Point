@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 st.set_page_config(
     layout='centered',
     page_title='Dashboard - Project Hinge Point',
-    page_icon='res/placeholder_image.png',
+    page_icon='res/project_hinge_point_logo.png',
 )
 
 def get_workspaces() -> None:

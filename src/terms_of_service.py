@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(
     layout='centered',
     page_title='Terms of Service - Project Hinge Point',
-    page_icon='res/placeholder_image.png',
+    page_icon='res/project_hinge_point_logo.png',
 )
 
 def header() -> None:

@@ -4,7 +4,7 @@ from main import get_new_workspace # for create workspace button
 st.set_page_config(
     layout='centered',
     page_title='How To Use - Project Hinge Point',
-    page_icon='assets/project_hinge_point_logo.png',
+    page_icon='res/project_hinge_point_logo.png',
 )
 
 def header() -> None:
@@ -22,7 +22,7 @@ def workflow_overview() -> None:
 
         col_1, col_2, col_3 = st.columns(3)
         with col_1:
-            with st.container(border=True):
+            with st.container(border=True, height=507):
                 st.markdown(
                     '''
                     #### **1. Create a Workspace**
@@ -32,7 +32,7 @@ def workflow_overview() -> None:
                     ''',
                     unsafe_allow_html=True,
                 )
-                st.image('res/placeholder_image.png', width='stretch')
+                st.image('res/create_a_workspace.png', width='stretch')
 
         with col_2:
             with st.container(border=True, height=507):
@@ -45,7 +45,7 @@ def workflow_overview() -> None:
                     ''',
                     unsafe_allow_html=True,
                 )
-                st.image('res/placeholder_image.png', width='stretch')
+                st.image('res/upload_your_data.png', width='stretch')
 
         with col_3:
             with st.container(border=True, height=507):
@@ -58,7 +58,7 @@ def workflow_overview() -> None:
                     ''',
                     unsafe_allow_html=True,
                 )
-                st.image('res/placeholder_image.png', width='stretch')
+                st.image('res/read_your_results.png', width='stretch')
 
 def data_format_requirements() -> None:
     with st.expander('Data Format Requirements'):
@@ -115,10 +115,10 @@ def reading_the_statistics() -> None:
 
         col_1, col_2 = st.columns(2)
         with col_1:
-            with st.container(border=True, height=476):
+            with st.container(border=True, height=513):
                 st.markdown(
                     '''
-                    #### **Metric Summary**
+                    #### **Standard Statistics**
 
                     The *Metric Summary* panel in each workspace summarizes descriptive statistics
                     for both the pre- and post-test score list. This includes
@@ -126,7 +126,7 @@ def reading_the_statistics() -> None:
                     ''',
                     unsafe_allow_html=True,
                 )
-                st.image('res/placeholder_image.png', width='stretch')
+                st.image('res/standard_statistics.png', width='stretch')
 
         with col_2:
             with st.container(border=True):
@@ -141,7 +141,7 @@ def reading_the_statistics() -> None:
                     ''',
                     unsafe_allow_html=True,
                 )
-                st.image('res/placeholder_image.png', width='stretch')
+                st.image('res/key_metrics.png', width='stretch')
 
 def reading_the_charts() -> None:
     with st.expander('Reading the Charts'):
@@ -160,11 +160,11 @@ def reading_the_charts() -> None:
                 ''',
                 unsafe_allow_html=True,
             )
-            col_2.image('res/placeholder_image.png', width='stretch')
+            col_2.image('res/baseline_histograms.png', width='stretch')
 
         with st.container(border=True):
             col_1, col_2 = st.columns(2)
-            col_1.image('res/placeholder_image.png', width='stretch')
+            col_1.image('res/box_plot_comparison.png', width='stretch')
             col_2.markdown(
                 '''
                 #### **Box Plot Comparison**
@@ -187,11 +187,11 @@ def reading_the_charts() -> None:
                 ''',
                 unsafe_allow_html=True,
             )
-            col_2.image('res/placeholder_image.png', width='stretch')
+            col_2.image('res/comparison_histograms.png', width='stretch')
 
         with st.container(border=True):
             col_1, col_2 = st.columns(2)
-            col_1.image('res/placeholder_image.png', width='stretch')
+            col_1.image('res/scatter_plot.png', width='stretch')
             col_2.markdown(
                 '''
                 #### **Pre- vs. Post-test Score Scatter Plot**

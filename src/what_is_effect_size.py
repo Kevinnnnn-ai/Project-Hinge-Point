@@ -5,7 +5,7 @@ from main import get_new_workspace # workspace creation in call-to-action sectio
 st.set_page_config(
     layout='centered',
     page_title='What Is Effect Size? - Project Hinge Point',
-    page_icon='assets/project_hinge_point_logo.png',
+    page_icon='res/project_hinge_point_logo.png',
 )
 
 def header() -> None:
