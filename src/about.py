@@ -1,5 +1,5 @@
 import streamlit as st
-from main import get_new_workspace # for workspace redirection button
+from main import get_new_workspace # for workspace creation button
 
 st.set_page_config(
     layout='centered',
@@ -7,11 +7,11 @@ st.set_page_config(
     page_icon='res/placeholder_image.png',
 )
 
-def value_proposition() -> None: # what is the point of Project Hinge Point in a few words?
+def value_proposition() -> None:
     st.markdown(
         '''
         # About Project Hinge Point
-        ##### Turning educational data into insight.
+        Turning data about education into insight.
         ''',
         unsafe_allow_html=True,
     )
@@ -20,15 +20,15 @@ def value_proposition() -> None: # what is the point of Project Hinge Point in a
         col_1, col_2, col_3 = st.columns(3)
         with col_1:
             st.image('res/placeholder_image.png')
-            st.markdown('#### Instant Analysis', unsafe_allow_html=True)
+            st.markdown('#### **Instant Analyses**', unsafe_allow_html=True)
         with col_2:
             st.image('res/placeholder_image.png')
-            st.markdown('#### Clear Benchmarks', unsafe_allow_html=True)
+            st.markdown('#### **Clear Comparisons**', unsafe_allow_html=True)
         with col_3:
             st.image('res/placeholder_image.png')
-            st.markdown('#### Visual Insights', unsafe_allow_html=True)
+            st.markdown('#### **Data Visualizations**', unsafe_allow_html=True)
 
-def story() -> None: # how did Project Hinge Point come to be and why?
+def the_why() -> None:
     with st.container(border=True):
         col_1, col_2 = st.columns([3, 4], vertical_alignment='center')
         with col_1:
@@ -39,38 +39,39 @@ def story() -> None: # how did Project Hinge Point come to be and why?
             '''
             ## The Why
 
-            Teachers collect numerous amounts of classroom data, but turning that data into a *clear*
-            picture of impact has always required specialized statistical tools.
+            Teachers often quickly accumulate massive amounts of classroom data,
+            but transforming that data into clear, actionable insight is often more difficult
+            than many think.
 
-            Most educators don't have the *time*, *training*, or *access* to those tools. In fact, many
-            important decisions get made on instinct rather than evidence, as patterns in the data can go unnoticed.
+            Most educators don't have the time, training, or access to use the tools
+            required to analyze their data. This in turn makes educators gauge actions
+            based on instinct rather than evidence.
 
-            :grey-background[Project Hinge Point was built to change that], an *accessible* interface that turns
+            Project Hinge Point was built to change that. It's an accessible interface that turns
             data into insight directly within the hands of the people who need it most.
             ''',
             unsafe_allow_html=True,
         )
 
-def mission() -> None: # mission statement
+def mission_statement() -> None: # mission statement
     with st.container(border=True):
         col_1, col_2 = st.columns(2, vertical_alignment='center')
         col_1.markdown(
             '''
             ## Mission & Values
 
-            The mission is to make statistical analysis
-            :grey-background[*accessible*, *interpretable*, and *usable*] for every teacher.
+            The mission is to make statistical analysis accessible, interpretable,
+            and usable for every teacher.
 
             We believe that:
-            + Data belongs to *teachers*.
-            + Good tools should be *simple* and *accurate*.
+            + Data belongs to teachers
+            + Good tools should be simple and accurate
             ''',
             unsafe_allow_html=True,
         )
-
         col_2.image('res/placeholder_image.png', width='stretch')
 
-def team() -> None: # about myself and broader goals in the context of this project
+def the_creator_and_developer() -> None:
     with st.container(border=True):
         col_1, col_2 = st.columns([7, 5], vertical_alignment='center')
         col_1.image('res/placeholder_image.png', width='stretch')
@@ -79,31 +80,32 @@ def team() -> None: # about myself and broader goals in the context of this proj
             '''
             ## The Creator & Developer
 
-            My name is *Kevin Jie*, and I built Project Hinge Point to 
-            :grey-background[bridge the gap between educational research]
-            and classroom practices at *Temple High School*. I want to focus on combining statistical analysis
-            with graphical interfaces that :grey-background[anyone can use].
+            My name is Kevin Jie, and I built Project Hinge Point to bridge the gap between
+            education and classroom analysis. I want to focus on combining statistical analysis
+            with easy-to-use graphical interfaces that facilitate the classroom decision-making.
             ''',
             unsafe_allow_html=True,
         )
 
-def credibility() -> None: # why is the project trustworthy and reliable?
+def the_research_behind_it() -> None:
     with st.container(border=True):
         col_1, col_2 = st.columns([2, 1], vertical_alignment='center')
         col_1.markdown(
             '''
             ## The Research Behind It
 
-            *John Hattie's* synthesis of over 800 meta-analyses, published in
+            John Hattie's synthesis of over 800 meta-analyses, published in
             *Visible Learning* (2009), remains one of the most comprehensive
-            investigations into what actually drives student achievement.
+            investigations into what actually drives student achievement and learning.
 
-            His central finding: an *effect size of 0.40* represents the average
+            His central finding is an effect size of 0.40. It represents the average
             yearly learning growth expected of a student. Practices that exceed
-            this threshold are considered above-average contributors to learning.
+            this threshold are considered above-average contributors to learning,
+            and thus a effective teaching methodology.
 
-            Project Hinge Point implements this :grey-background[benchmark] so educators can
-            measure their own impact against a :grey-background[globally recognized standard].
+            Project Hinge Point implements this point so educators can gauge and
+            measure their own impact against a globally recognized standard, allowing
+            for both methodology refinement and comparison.
             ''',
             unsafe_allow_html=True,
         )
@@ -118,30 +120,30 @@ def credibility() -> None: # why is the project trustworthy and reliable?
             unsafe_allow_html=True,
         )
 
-def call_to_action() -> None: # start using Project Hinge Point now
+def call_to_action() -> None:
     with st.container(border=True):
         col_1, col_2 = st.columns(2, vertical_alignment='center')
         col_1.markdown(
             '''
             ## Ready to Get Started?
 
-            Upload your pre- and post-test data and see your instructional
-            impact measured in seconds. :grey-background[No statistics background required].
+            Upload your pre- and post-test data and see your educational
+            impact in seconds. No statistics background is required,
+            so what are you waiting for?
             ''',
             unsafe_allow_html=True,
         )
-
         col_2.image('res/placeholder_image.png', width='stretch')
 
         button = st.button('Create Workspace', type='primary', width='stretch', icon=':material/add_circle:')
         if button:
             get_new_workspace()
-            st.rerun() # makes the newly added workspace viible via sidebar
+            st.rerun()
 
 if __name__ == '__main__':
     value_proposition()
-    story()
-    mission()
-    team()
-    credibility()
+    the_why()
+    mission_statement()
+    the_creator_and_developer()
+    the_research_behind_it()
     call_to_action()

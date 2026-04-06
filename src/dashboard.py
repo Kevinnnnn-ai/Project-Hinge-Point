@@ -386,11 +386,6 @@ def compressed_workspace_summary_table(workspaces: list[dict]) -> None:
                 pre_stats        = workspace['workspace_data']['pre_score_statistics']
                 post_stats       = workspace['workspace_data']['post_score_statistics']
 
-                if dataframe_stats['is_above_hinge']:
-                    is_above_hinge = 'Yes'
-                else:
-                    is_above_hinge = 'No'
-
                 rows.append(
                     {
                         'Workspace': workspace['workspace_data']['name'],
@@ -402,10 +397,9 @@ def compressed_workspace_summary_table(workspaces: list[dict]) -> None:
                         's₂':        f'{post_stats['post_std']:.2f}',
                         'sₚ':        f'{dataframe_stats['pooled_std']:.2f}',
                         'd':         f'{dataframe_stats['cohens_d']:.2f}',
-                        'd ≥ 0.40':  is_above_hinge,
-                        'Improved':  dataframe_stats['students_improved'],
-                        'Unchanged': dataframe_stats['students_unchanged'],
-                        'Regressed': dataframe_stats['students_regressed'],
+                        'Imp.':  dataframe_stats['students_improved'],
+                        'Unch.': dataframe_stats['students_unchanged'],
+                        'Reg.': dataframe_stats['students_regressed'],
                     }
                 )
 
@@ -421,7 +415,6 @@ if __name__ == '__main__':
     active_workspaces = get_active_workspaces()
 
     if not no_data_guard(active_workspaces):
-        
         aggregate_metrics = get_aggregate_statistics(active_workspaces)
         aggregate_metrics_panel(aggregate_metrics)
 

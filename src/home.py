@@ -1,5 +1,5 @@
 import streamlit as st
-import plotly.graph_objects as go # for visual figures in each card
+import plotly.graph_objects as go             # for visual figures in each card
 from main import get_pages, get_new_workspace # to redirect users via the buttons on each card
 
 st.set_page_config(
@@ -67,7 +67,6 @@ def what_is_effect_size_card() -> None:
         )
 
         gauge.update_layout(height=250, margin=dict(t=60, b=0, l=40, r=40))
-
         st.plotly_chart(gauge, width='stretch', height=160)
 
 def dashboard_card() -> None:
@@ -80,6 +79,21 @@ def dashboard_card() -> None:
             Collectively and holisitically review all your workspaces in one place.
             ''',
             unsafe_allow_html=True,
+        )
+        
+        col_1, col_2 = st.columns(2)
+        col_1.metric(
+            label='\# Improved',
+            value=30, border=True,
+            delta=f'{10} ({50:.2f}%)',
+            height=160,
+        )
+
+        col_2.metric(
+            label='Post- Mean (x̄₂)',
+            value=68.85, border=True,
+            delta=f'{9.85} ({16.69:.2f}%)',
+            height=160,
         )
 
 def workspaces_card() -> None:
@@ -127,7 +141,7 @@ def terms_of_service_card() -> None:
 
         st.markdown(
             '''
-            Review how Project Hinge Point should utilized in order to
+            Review how Project Hinge Point should be utilized in order to
             produce reliable results, make informed decisions,
             and help build Project Hinge Point into more than just an educational tool.
             ''',

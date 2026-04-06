@@ -1,6 +1,6 @@
 import streamlit as st
-import pandas as pd    # for dummy dataframe
-import numpy as np     # for dummy dataset calculations
+import pandas as pd # for dummy dataframe
+import numpy as np  # for dummy dataset calculations
 
 def set_dummy_dataset(dummy_dataset: str) -> None:
     dummy_dataframe = pd.read_csv(dummy_dataset)

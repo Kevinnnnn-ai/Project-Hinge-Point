@@ -11,7 +11,7 @@ def header() -> None:
     st.markdown(
         '''
         # How To Project Hinge Point
-        From raw scores to actionable insight in three steps.
+        From scores to insight in three steps.
         ''',
         unsafe_allow_html=True,
     )
@@ -26,34 +26,34 @@ def workflow_overview() -> None:
                 st.markdown(
                     '''
                     #### **1. Create a Workspace**
-                    Each workspace holds *one* dataset, one pre-/post-assessment cycle.
-                    :grey-background[Create as many as you need] from the sidebar or the
-                    buttons on this page.
+                    Each workspace holds *one* dataset. This means one pre-/post-assessment cycle.
+                    :grey-background[Create as many workspaces as you need] from the sidebar or the
+                    buttons on this page to manage multiple cycles.
                     ''',
                     unsafe_allow_html=True,
                 )
                 st.image('res/placeholder_image.png', width='stretch')
 
         with col_2:
-            with st.container(border=True, height=429):
+            with st.container(border=True, height=507):
                 st.markdown(
                     '''
                     #### **2. Upload Your Data**
                     Upload a `.csv`, `.xlsx`, or `.ods` file with your student scores.
                     The :grey-background[*first three* columns must follow the required order]
-                    (see below).
+                    (which you can see below).
                     ''',
                     unsafe_allow_html=True,
                 )
                 st.image('res/placeholder_image.png', width='stretch')
 
         with col_3:
-            with st.container(border=True, height=429):
+            with st.container(border=True, height=507):
                 st.markdown(
                     '''
                     #### **3. Read Your Results**
-                    The workspace instantly calculates
-                    :grey-background[descriptive statistics, Cohen's d, and renders visualizations]
+                    Each workspace calculates
+                    :grey-background[descriptive statistics, Cohen's d, and visualizations]
                     for your data.
                     ''',
                     unsafe_allow_html=True,
@@ -72,7 +72,8 @@ def data_format_requirements() -> None:
                     #### **Required Column Order**
 
                     Your file's :grey-background[*first three columns*] must be structured as follows.
-                    Column names do *not* need to match exactly, as only position matters.
+                    Column names do *not* need to match exactly, as only their position matters
+                    (they are not needed for calculation).
 
                     | Column 1                       | Column 2       | Column 3        |
                     |---                             |---             |---              |
@@ -84,7 +85,7 @@ def data_format_requirements() -> None:
                 )
 
         with col_2:
-            with st.container(border=True, height=349):
+            with st.container(border=True, height=374):
                 st.markdown(
                     '''
                     #### **No Student Names?**
@@ -114,13 +115,13 @@ def reading_the_statistics() -> None:
 
         col_1, col_2 = st.columns(2)
         with col_1:
-            with st.container(border=True, height=502):
+            with st.container(border=True, height=476):
                 st.markdown(
                     '''
                     #### **Metric Summary**
 
-                    The *Metric Summary* panel in each workspace reports descriptive statistics
-                    for both the pre- and post-test distributions:
+                    The *Metric Summary* panel in each workspace summarizes descriptive statistics
+                    for both the pre- and post-test score list. This includes
                     :grey-background[min, max, range, mean, quartiles, IQR, and standard deviation.]
                     ''',
                     unsafe_allow_html=True,
@@ -135,8 +136,8 @@ def reading_the_statistics() -> None:
 
                     The *Key Metrics* panel displays the four most important numbers:
                     :grey-background[pre-test mean, post-test mean, mean improvement (*Δx̄*), and Cohen's *d*].
-                    Below them, the :grey-background[pooled and individual standard deviations]
-                    allow you to verify the spread used in the calculation.
+                    Below them are the :grey-background[pooled and individual standard deviations],
+                    allowing you to verify spread.
                     ''',
                     unsafe_allow_html=True,
                 )
@@ -151,11 +152,11 @@ def reading_the_charts() -> None:
             col_1.markdown(
                 '''
                 #### **Baseline Histograms**
+
                 Two :grey-background[independent histograms] with 
-                :grey-background[adjustable baseline sliders].
-                The table beneath each chart counts how many students scored
-                below, at, and above your chosen threshold; it's useful for
-                identifying the quantity of students who may need additional support.
+                :grey-background[baseline sliders].
+                The table beneath each charts count how many students (both raw counts and percentages) scored
+                below, at, and above your chosen baseline.
                 ''',
                 unsafe_allow_html=True,
             )
@@ -167,9 +168,10 @@ def reading_the_charts() -> None:
             col_2.markdown(
                 '''
                 #### **Box Plot Comparison**
-                Side-by-side box plots display the
+
+                Side-by-side box plots that display the
                 :grey-background[median, quartile spread, and individual score points]
-                for both assessments. Hover over each plot to inspect exact values.
+                for both assessments.
                 ''',
                 unsafe_allow_html=True,
             )
@@ -179,8 +181,9 @@ def reading_the_charts() -> None:
             col_1.markdown(
                 '''
                 #### **Comparison Histogram**
+
                 Overlays :grey-background[pre-test and post-test] score distributions
-                in 5-point bins. Use the legend to toggle each series on or off independently.
+                in 5-point bins.
                 ''',
                 unsafe_allow_html=True,
             )
@@ -192,6 +195,7 @@ def reading_the_charts() -> None:
             col_2.markdown(
                 '''
                 #### **Pre- vs. Post-test Score Scatter Plot**
+
                 Plots :grey-background[pre- versus post-test scores]
                 alongside a linear representation of stagnating scores.
                 Scores above the line improved, below regressed, and on it stayed the same.

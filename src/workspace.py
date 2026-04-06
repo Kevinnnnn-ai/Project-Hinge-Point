@@ -1,7 +1,7 @@
 import streamlit as st
-import pandas as pd # for dataframe creation
-import numpy as np # for pooled std calculation
-import plotly.express as px # for histogram figures
+import pandas as pd               # for dataframe creation
+import numpy as np                # for pooled std calculation
+import plotly.express as px       # for histogram figures
 import plotly.graph_objects as go # for visual data displays (in general)
 
 def header(workspace_name: str) -> None:

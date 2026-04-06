@@ -12,7 +12,8 @@ def header() -> None:
     st.markdown(
         '''
         # What Is Effect Size?
-        Understanding the numbers behind your instructional impact.
+
+        Understand the numbers behind your impact.
         ''',
         unsafe_allow_html=True,
     )
@@ -25,11 +26,11 @@ def the_core_idea() -> None:
                 '''
                 ## The Core Idea
 
-                An effect size is a standardized :grey-background[measure of the *magnitude*] of a
+                Effect sizes are standardized :grey-background[measures of the *magnitude*] that represent a
                 difference between :grey-background[two groups or two points in time].
-                Unlike raw score changes, effect sizes are :grey-background[*scale-independent*];
-                in other words, they account for the natural spread of scores in your class,
-                making results :grey-background[comparable] across different assessments, grade levels, and subjects. 
+                Effect sizes are :grey-background[*scale-independent*], meaning
+                they account for the natural spread of scores in your class,
+                making scores :grey-background[comparable] across different assessments, grade levels, and subjects. 
 
                 In the context of pre- and post-test data, effect size answers one question:
                 ''',
@@ -42,10 +43,10 @@ def the_core_idea() -> None:
                     '''
                     #### **Why Not Just Use Score Change?**
 
-                    A 10-point gain means something *different* when scores range
+                    A 10-point gain means something *different* when scores ares
                     from 90 to 100 versus 40 to 100. Effect size :grey-background[normalizes]
-                    that gain in your data, producing a number that is
-                    :grey-background[directly comparable and interpretable].
+                    the gain, calculating a number that is
+                    :grey-background[comparable and interpretable] regardless of context.
                     ''',
                     unsafe_allow_html=True,
                 )
@@ -71,10 +72,9 @@ def cohens_d_and_the_formulas() -> None:
 
                     $$n = \text{count of student records in dataset}$$
 
-                    The :grey-background[number of students] with both a pre- and post-test
-                    score. Effect size reliability increases with sample size, as
-                    results from :grey-background[fewer than 10 students] should be interpreted
-                    cautiously.
+                    This is the :grey-background[number of students] with both a pre- and post-test
+                    score. The reliability of effect sizes increase with sample size. Results from
+                    :grey-background[fewer than 10 students] should be interpreted cautiously.
                     ''',
                     unsafe_allow_html=True,
                 )
@@ -86,9 +86,9 @@ def cohens_d_and_the_formulas() -> None:
 
                     $$sₚ = \sqrt{\frac{(n-1)s₁^2 + (n-1)s₂^2}{2n - 2}}$$
 
-                    The pooled standard deviation :grey-background[combines the variability]
-                    of both the pre- and post-test distributions into a
-                    :grey-background[single representative spread].
+                    The pooled standard deviation :grey-background[combines variability]
+                    from both the pre- and post-test score lists into a
+                    :grey-background[single spread].
                     ''',
                     unsafe_allow_html=True,
                 )
@@ -101,10 +101,10 @@ def cohens_d_and_the_formulas() -> None:
 
                     $$\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$$
 
-                    The :grey-background[mean of all scores for a given assessment].
+                    This is the :grey-background[mean of all scores for a given test type], where
                     *x̄₁* is the pre-test mean and *x̄₂* is the post-test mean.
-                    Their difference (*Δx̄*) is the raw score gain before
-                    standardization by *sₚ*.
+                    Their difference (*Δx̄*) is the raw mean score gain before the
+                    standardization (*sₚ*).
                     ''',
                     unsafe_allow_html=True,
                 )
@@ -116,7 +116,7 @@ def cohens_d_and_the_formulas() -> None:
 
                     $$d = \frac{x̄₁ - x̄₂}{sₚ}$$
 
-                    The result, *d*, expresses :grey-background[how many standard deviations]
+                    The result, *d*, is a representation of :grey-background[how many standard deviations]
                     the post-test mean sits above the pre-test mean.
                     ''',
                     unsafe_allow_html=True,
@@ -128,7 +128,7 @@ def hatties_hinge_point() -> None:
 
         col_1, col_2 = st.columns([1, 3])
         with col_1:
-            with st.container(border=True, height=304):
+            with st.container(border=True):
                 st.markdown(
                     '''
                     > *"An effect size of 0.40 sets the standard from which we can judge
@@ -139,18 +139,17 @@ def hatties_hinge_point() -> None:
                 )
 
         with col_2:
-            with st.container(border=True):
+            with st.container(border=True, height=278):
                 st.markdown(
                     '''
-                    John Hattie synthesized more than :grey-background[800 meta-analyses] covering over
-                    :grey-background[80 million students] to identify what instructional practices
-                    drive learning most effectively.
-                    His central benchmark, the :grey-background[*0.40 hinge point*] represents the average
-                    growth a student is expected to make in one academic year through typical schooling. 
+                    John Hattie's more than :grey-background[800 meta-analyses] covered over
+                    :grey-background[80 million students]. His aim was to identify what educational practices
+                    push for effective learning.
+                    His central point of comparison, the :grey-background[*0.40*] effect size, represents the average
+                    growth a student is expected to make in one year. This is Hattie's hinge point.
 
-                    Interventions that exceed *d* = 0.40 are producing learning gains
-                    :grey-background[above and beyond what students would achieve on their own].
-                    This is the threshold that Project Hinge Point measures every result against.
+                    Interventions that exceed an effect size of 0.40 are resulting in learning gains that go
+                    :grey-background[above and beyond what students are expected to do on their own].
                     ''',
                     unsafe_allow_html=True,
                 )
@@ -161,9 +160,9 @@ def interpreting_your_results() -> None:
 
         st.markdown(
             '''
-            Project Hinge Point :grey-background[classifies every result] into one of four
-            impact categories. Each maps to a range of Cohen's *d* values and carries a
-            :grey-background[distinct instructional implication].
+            Project Hinge Point :grey-background[puts every result] into one of four
+            categories. These categories map your Cohen's *d* values to a broad
+            :grey-background[teaching implication].
             ''',
             unsafe_allow_html=True,
         )
@@ -226,12 +225,12 @@ def important_caveats() -> None:
 
             + **Sample size matters**: Effect sizes calculated on very small groups (fewer than 10 students)
               carry wide uncertainty and should be interpreted cautiously.
-            + **Effect size does not imply causation**: A high *d* means scores improved significantly;
-              it does not prove the intervention alone caused the improvement.
-            + **Context is everything**: A *d* of 0.35 in a high-performing group of students may reflect
-              a plateau effect, not a weak intervention.
-            + **This tool assumes equal group sizes**: Pre- and post-test data should come from the same
-              students. Mismatched datasets will produce misleading results.
+            + **Effect size does not always imply a meaning**: A high *d* means scores improved significantly,
+              but it does not prove that the teaching alone led to the improvement.
+            + **Context matters**: A *d* of 0.35 in an aleady strong group of students may reflect
+              a plateau of learning, not a weak teaching.
+            + **Effect size assumes equal group sizes**: Pre- and post-test data should come from the same
+              students and same number of students. Mismatched datasets will lead to misleading results.
             ''',
             unsafe_allow_html=True,
         )
