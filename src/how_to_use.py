@@ -204,7 +204,7 @@ def reading_the_charts() -> None:
             )
 
 def call_to_action() -> None:
-    with st.expander('Ready to Begin?'):
+    with st.expander('Ready to Begin?', expanded=True):
         col_1, col_2 = st.columns(2, vertical_alignment='center')
 
         with col_1:

@@ -83,7 +83,7 @@ def dashboard_card() -> None:
         
         col_1, col_2 = st.columns(2)
         col_1.metric(
-            label='\# Improved',
+            label='Improved Num.',
             value=30, border=True,
             delta=f'{10} ({50:.2f}%)',
             height=160,
@@ -159,6 +159,7 @@ def about_card() -> None:
             ''',
             unsafe_allow_html=True,
         )
+        st.image('res/the_creator_and_developer.png', width='stretch')
 
 def header() -> None:
     st.markdown(
