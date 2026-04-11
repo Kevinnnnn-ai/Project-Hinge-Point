@@ -139,15 +139,11 @@ Navigate pages using the side bar   | Create workspaces with the side bar button
 
 Through your created workspaces, you can ...
 
-Calculate your effect size | Get statistical break downs        | Interact with the baseline histograms
-:-------------------------:|:----------------------------------:|:-------------------------------------:
-![](res/key_metrics.png)   | ![](res/statistical_summaries.png) | ![](res/clear_comparisons.png)
-
-Compare score distributions        | Analyze change disparaties       | View student improvement
-:---------------------------------:|:--------------------------------:|:-------------------------:
-![](res/comparison_histograms.png) | ![](res/box_plot_comparison.png) | ![](res/scatter_plot.png) 
-
----
+Calculate your effect size         | Get statistical break downs        | Interact with the baseline histograms
+:---------------------------------:|:----------------------------------:|:------------------------------:
+![](res/key_metrics.png)           | ![](res/statistical_summaries.png) | ![](res/clear_comparisons.png)
+Compare score distributions        | Analyze change disparaties         | View student improvement
+![](res/comparison_histograms.png) | ![](res/box_plot_comparison.png)   | ![](res/scatter_plot.png) 
 
 Simply follow the instructions and descriptions given on each page to learn about the application's functionality,
 or visit the "*How To Use*" page under "*Using Project Hinge Point*" to read more.
