@@ -7,7 +7,6 @@
 
 
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/Kevinnnnn-ai/Project_Hinge_Point">
@@ -30,9 +29,6 @@
   </p>
 </div>
 
-
-
-<!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -60,7 +56,6 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 Upfront Metric Display   | Interactive Tools              | Statistical Summaries              |  Clear Visualizations
@@ -94,63 +89,82 @@ how effective your teaching methods are and what changes you should make.
 
 
 
-<!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To get a local copy of this Streamlit application, follow these simple steps.
+Once creating your own local copy, you can run it on your system using a web browser.
 
-### Prerequisites
+Though, publishing the cloned copy is a different story.
+Being my personal Streamlit application, publishing it would be redundant.
+In fact, you can view it [here](https://project-hinge-point.streamlit.app/)!
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+However, if you wish to publish the copy, follow [Streamlit's](https://streamlit.io/#install)
+steps as listed on the website.
+
+
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Switch to desired directory.
+   ```sh
+   cd DIRECTORY
+   ```
+2. Clone the repository.
    ```sh
    git clone https://github.com/Kevinnnnn-ai/Project_Hinge_Point.git
    ```
-3. Install NPM packages
+3. Move into the project directory.
    ```sh
-   npm install
+   cd Project_Hinge_Point
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin Kevinnnnn-ai/Project_Hinge_Point
-   git remote -v # confirm the changes
-   ```
+4. Install dependencies in `requirements.txt`.
+    ```sh
+    pip install -r requirements.txt
+    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Given you have a local copy, you can run it on your local system using Streamlit.
+```sh
+streamlit run src/main.py
+```
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Once in the application, ...
+
+Navigate pages using the side bar   | Create workspaces with the side bar button
+:----------------------------------:|:-------------------------------------------:
+![](res/side_bar.png)               | ![](res/side_bar_button.png) 
+
+Through your created workspaces, you can ...
+
+Calculate your effect size | Get statistical break downs        | Interact with the baseline histograms
+:-------------------------:|:----------------------------------:|:-------------------------------------:
+![](res/key_metrics.png)   | ![](res/statistical_summaries.png) | ![](res/clear_comparisons.png)
+
+Compare score distributions        | Analyze change disparaties       | View student improvement
+:---------------------------------:|:--------------------------------:|:-------------------------:
+![](res/comparison_histograms.png) | ![](res/box_plot_comparison.png) | ![](res/scatter_plot.png) 
+
+---
+
+Simply follow the instructions and descriptions given on each page to learn about the application's functionality,
+or visit the "*How To Use*" page under "*Using Project Hinge Point*" to read more.
+
+*To view the site, refer to [Project Hinge Point](https://project-hinge-point.streamlit.app/)*
+
+*To read more about Streamlit itself, please refer to the [docs.streamlit](https://docs.streamlit.io/get-started)*
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ]
 
 See the [open issues](https://github.com/Kevinnnnn-ai/Project_Hinge_Point/issues) for a full list of proposed features (and known issues).
 
@@ -158,12 +172,13 @@ See the [open issues](https://github.com/Kevinnnnn-ai/Project_Hinge_Point/issues
 
 
 
-<!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to learn,
+inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have a suggestion that would make this better,
+please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
@@ -174,6 +189,8 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+
 ### Top contributors:
 
 <a href="https://github.com/Kevinnnnn-ai/Project_Hinge_Point/graphs/contributors">
@@ -182,32 +199,11 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-<!-- LICENSE -->
-## License
-
-Distributed under the project_license. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Kevin Jie - [kevin-jie-21a477368](https://www.linkedin.com/in/kevin-jie-21a477368/) - kevinwjie@gmail.com
 
 Project Link: [https://github.com/Kevinnnnn-ai/Project_Hinge_Point](https://github.com/Kevinnnnn-ai/Project_Hinge_Point)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
